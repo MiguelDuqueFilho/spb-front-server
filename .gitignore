@@ -3,14 +3,13 @@
 /node_modules
 
 # environment
-.env
-.env.test
+.env*
 
 # Logs
 logs
 *.log
 npm-debug.log*
-pnpm-debug.log*
+pnpm-debug.
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
