@@ -37,7 +37,7 @@ export class UploadController {
     files: Express.MulterS3.File[],
   ) {
     console.log(files);
-    // return await this.uploadService.uploadFile(file);
+    // return await this.uploadService.uploadFile(files);
     return { files };
   }
 }
