@@ -2,8 +2,8 @@ import { ValidationPipe, INestApplication } from '@nestjs/common';
 import * as pactum from 'pactum';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
-import { AuthDto } from '../src/auth/dto/auth.dto';
-import { EditUserDto } from '../src/user/dto/edit-user.dto';
+import { AuthDto } from '../src/app/auth/dto/auth.dto';
+import { EditUserDto } from '../src/app/user/dto/edit-user.dto';
 import { PrismaService } from '../src/infra/prisma/prisma.service';
 
 describe('App e2e', () => {
@@ -20,16 +20,18 @@ describe('App e2e', () => {
       }),
     );
     await app.init();
-    await app.listen(3333);
+    const port = process.env.PORT;
+    await app.listen(port);
 
     prisma = app.get(PrismaService);
     await prisma.cleanDb();
-    pactum.request.setBaseUrl('http://localhost:3333');
+    pactum.request.setBaseUrl(`http://localhost:${port}`);
   });
 
   afterAll(() => {
     app.close();
   });
+
   describe('Auth', () => {
     const dto: AuthDto = { email: 'miguel@duquebr.com', password: '123' };
     describe('Signup', () => {
@@ -96,6 +98,7 @@ describe('App e2e', () => {
       });
     });
   });
+
   describe('User', () => {
     describe('Get me', () => {
       it('Should get current user', () => {
@@ -128,6 +131,7 @@ describe('App e2e', () => {
       });
     });
   });
+
   // describe('Bookmarks', () => {
   //   describe('Create bookmarks', () => {
   //     it.todo('Should Create bookmarks');
@@ -144,5 +148,4 @@ describe('App e2e', () => {
   //   describe('Delete bookmark', () => {
   //     it.todo('Should Delete bookmark by id');
   //   });
-  // });
 });

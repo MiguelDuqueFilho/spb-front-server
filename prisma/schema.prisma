@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,22 +17,77 @@ model User {
   firstName String?
   lastname  String?
 
-  bookmarks Bookmark[]
-
   @@map("users")
 }
 
-model Bookmark {
+model FileEntity {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fileName String
+  fileUrl  String
+  key      String
+
+  @@map("FilesEntity")
+}
+
+model Service {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 
-  title       String  @unique
-  description String?
-  link        String
+  service     String  @unique // @db.VarChar(15)
+  description String // @db.VarChar(255)
+  domain      String //@db.VarChar(15)
+  Events      Event[]
 
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  @@map(name: "Services")
+}
 
-  @@map("bookmarks")
+model Event {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  codEvent  String    @unique // @db.VarChar(15)
+  eventName String? //   @db.VarChar(255)
+  flow      String //   @db.VarChar(10)
+  serviceId Int? // @db.VarChar(15)
+  servico   Service?  @relation(fields: [serviceId], references: [id])
+  isConvert Boolean   @default(false)
+  eventJson String    @default("[]")
+  Messages  Message[]
+
+  @@map(name: "Events")
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  codMsg            String @unique // @db.VarChar(15)
+  tag               String // @db.VarChar(255)
+  description       String // @db.VarChar(255)
+  origenEntity      String // @db.VarChar(50)
+  destinationEntity String // @db.VarChar(50)
+  codEventId        String // @db.VarChar(15)
+  Events            Event? @relation(fields: [codEventId], references: [codEvent])
+
+  @@map(name: "Messages")
+}
+
+model MessageCreated {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  codMsg     String
+  xmlMessage String // @db.Xml
+  process    String  @default("PENDING") // PROCESSING - COMPLETED
+  status     String  @default("VALIDATED") // ERROR
+  error      String?
+
+  @@map(name: "MessagesCreated")
 }
