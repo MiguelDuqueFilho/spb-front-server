@@ -1,17 +1,14 @@
 import {
   Controller,
-  FileTypeValidator,
-  Logger,
-  ParseFilePipe,
   Post,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import path from 'node:path';
-import { UploadService } from './upload.service';
+import { S3Service } from './s3.service';
 
-const pngFileFilter = (req, file, callback) => {
+const pngFileFilter = (req: any, file: any, callback) => {
   const ext = path.extname(file.originalname);
   if (ext !== '.pdf') {
     req.fileValidationError = 'Invalid file type';
@@ -20,24 +17,20 @@ const pngFileFilter = (req, file, callback) => {
   return callback(null, true);
 };
 
-@Controller('api/upload')
-export class UploadController {
-  logger = new Logger(UploadController.name);
+@Controller('api/s3')
+export class S3Controller {
+  constructor(private readonly s3Service: S3Service) {}
 
-  constructor(private readonly uploadService: UploadService) {}
-
-  @Post('catalog')
+  @Post('upload/catalog')
   @UseInterceptors(
     FilesInterceptor('files', 3, {
       fileFilter: pngFileFilter,
     }),
   )
-  async uploadFileSCatalog(
+  async uploadFileS3Catalog(
     @UploadedFiles()
     files: Express.MulterS3.File[],
   ) {
-    console.log(files);
-    // return await this.uploadService.uploadFile(files);
-    return { files };
+    return await this.s3Service.uploadS3Files(files);
   }
 }

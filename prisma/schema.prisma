@@ -25,9 +25,12 @@ model FileEntity {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  fileName String
-  fileUrl  String
-  key      String
+  originalName String
+  bucket       String
+  key          String @unique
+  mimeType     String
+  size         Int
+  url          String
 
   @@map("FilesEntity")
 }
