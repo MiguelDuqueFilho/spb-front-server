@@ -5,6 +5,9 @@
 # environment
 .env*
 
+# prisma db
+/prisma/dev.db*
+
 # Logs
 logs
 *.log
