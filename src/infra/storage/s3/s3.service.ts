@@ -48,10 +48,14 @@ export class S3Service {
   }
 
   public async deleteS3File(key: string) {
-    const params = {
-      Bucket: this.config.get('AWS_BUCKET_NAME'),
-      Key: key,
-    };
-    return await this.s3.deleteObject(params).promise();
+    const isFileEntity = await this.prismaFileEntityRepository.deleteByKey(key);
+
+    if (isFileEntity) {
+      const params = {
+        Bucket: this.config.get('AWS_BUCKET_NAME'),
+        Key: key,
+      };
+      return await this.s3.deleteObject(params).promise();
+    }
   }
 }

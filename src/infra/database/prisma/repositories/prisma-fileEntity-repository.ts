@@ -1,8 +1,13 @@
 import { PrismaService } from '../prisma.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 
 import { FileEntity } from '@prisma/client';
 import { Replace } from '../../../../application/helpers/Replace';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 @Injectable()
 export class PrismaFileEntityRepository {
@@ -66,6 +71,25 @@ export class PrismaFileEntityRepository {
       return resultFileEntity;
     } catch (error) {
       throw new BadRequestException(error);
+    }
+  }
+
+  async deleteByKey(key: string): Promise<FileEntity | null> {
+    try {
+      const fileEntity = await this.prisma.fileEntity.delete({
+        where: {
+          key,
+        },
+      });
+      return fileEntity;
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new ForbiddenException('record not found');
+        } else {
+          throw error;
+        }
+      }
     }
   }
 }

@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Param,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -17,6 +19,7 @@ const pngFileFilter = (req: any, file: any, callback) => {
   return callback(null, true);
 };
 
+// @UseGuards(JwtGuard)
 @Controller('api/s3')
 export class S3Controller {
   constructor(private readonly s3Service: S3Service) {}
@@ -32,5 +35,10 @@ export class S3Controller {
     files: Express.MulterS3.File[],
   ) {
     return await this.s3Service.uploadS3Files(files);
+  }
+
+  @Get('delete/catalog/:key')
+  async deleteCatalog(@Param('key') key: string) {
+    return await this.s3Service.deleteS3File(key);
   }
 }
