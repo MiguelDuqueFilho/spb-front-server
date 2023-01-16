@@ -2,9 +2,9 @@ import { ValidationPipe, INestApplication } from '@nestjs/common';
 import * as pactum from 'pactum';
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
-import { AuthDto } from '../src/app/auth/dto/auth.dto';
-import { EditUserDto } from '../src/app/user/dto/edit-user.dto';
-import { PrismaService } from '../src/infra/prisma/prisma.service';
+import { AuthDto } from '../src/application/auth/dto/auth.dto';
+import { EditUserDto } from '../src/application/user/dto/edit-user.dto';
+import { PrismaService } from '../src/infra/database/prisma/prisma.service';
 
 describe('App e2e', () => {
   let app: INestApplication;

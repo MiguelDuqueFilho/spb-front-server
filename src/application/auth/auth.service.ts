@@ -1,51 +1,31 @@
 import { ConfigService } from '@nestjs/config';
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { PrismaService } from '../../infra/prisma/prisma.service';
 import { AuthDto } from './dto/auth.dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { PrismaUserRepository } from '../../infra/database/prisma/repositories/prisma-user-repository';
 
 @Injectable({})
 export class AuthService {
   constructor(
     private config: ConfigService,
     private jwt: JwtService,
-    private prisma: PrismaService,
+    private prismaUserRepository: PrismaUserRepository,
   ) {}
   async signup(dto: AuthDto) {
     //* generate password hash
     const hash = await argon.hash(dto.password);
 
     //* save the new user in the db
-    try {
-      const user = await this.prisma.user.create({
-        data: {
-          email: dto.email,
-          hash,
-        },
-      });
+    const user = await this.prismaUserRepository.create(dto, hash);
 
-      return await this.signToken(user.id, user.email);
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          throw new ForbiddenException('Credentials taken');
-        } else {
-          throw error;
-        }
-      }
-    }
+    return await this.signToken(user.id, user.email);
   }
 
   async login(dto: AuthDto) {
     //* find the user by email
 
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: dto.email,
-      },
-    });
+    const user = await this.prismaUserRepository.findByEmail(dto);
 
     //* if user does not exist throw exception
     if (!user) throw new ForbiddenException('Credentials incorrect');

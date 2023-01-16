@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MulterModule } from '@nestjs/platform-express';
+import { PrismaFileEntityRepository } from '../../database/prisma/repositories/prisma-fileEntity-repository';
 import { multerOptionsFactory } from './multer.options.factory';
 import { S3Controller } from './s3.controller';
 import { S3Service } from './s3.service';
@@ -14,6 +15,6 @@ import { S3Service } from './s3.service';
     }),
   ],
   controllers: [S3Controller],
-  providers: [S3Service],
+  providers: [S3Service, PrismaFileEntityRepository],
 })
 export class S3Module {}

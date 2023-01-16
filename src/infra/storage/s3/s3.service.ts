@@ -1,6 +1,6 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaFileEntityRepository } from '../../database/prisma/repositories/prisma-fileEntity-repository';
 import AWS from 'aws-sdk/';
 
 @Injectable()
@@ -12,7 +12,10 @@ export class S3Service {
       secretAccessKey: this.config.get<string>('AWS_SECRET_ACCESS_KEY'),
     },
   });
-  constructor(private config: ConfigService, private prisma: PrismaService) {}
+  constructor(
+    private config: ConfigService,
+    private prismaFileEntityRepository: PrismaFileEntityRepository,
+  ) {}
 
   async uploadS3Files(files: Express.MulterS3.File[]) {
     const upLoadS3Files = [];
@@ -25,30 +28,12 @@ export class S3Service {
         size: element.size,
         url: element.location,
       };
-      try {
-        let fileEntity = await this.prisma.fileEntity.findUnique({
-          where: {
-            key: element.key,
-          },
-        });
 
-        if (!fileEntity) {
-          fileEntity = await this.prisma.fileEntity.create({
-            data: file,
-          });
-        } else {
-          fileEntity = await this.prisma.fileEntity.update({
-            data: file,
-            where: {
-              key: element.key,
-            },
-          });
-        }
+      const fileEntity = await this.prismaFileEntityRepository.createOrUpdate(
+        file,
+      );
 
-        upLoadS3Files.push(fileEntity);
-      } catch (error) {
-        throw new BadRequestException(error);
-      }
+      upLoadS3Files.push(fileEntity);
     }
     return upLoadS3Files;
   }
