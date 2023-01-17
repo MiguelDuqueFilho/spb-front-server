@@ -37,6 +37,11 @@ export class S3Controller {
     return await this.s3Service.uploadS3Files(files);
   }
 
+  @Get('get/catalog/:key')
+  async getCatalog(@Param('key') key: string) {
+    return await this.s3Service.getS3File(key);
+  }
+
   @Get('delete/catalog/:key')
   async deleteCatalog(@Param('key') key: string) {
     return await this.s3Service.deleteS3File(key);
