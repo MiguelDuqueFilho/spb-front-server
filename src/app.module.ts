@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './application/auth/auth.module';
 import { UserModule } from './application/user/user.module';
-import { DatabaseModule } from './infra/database/database.mobule';
-import { S3Module } from './infra/storage/s3/s3.module';
+import { PrismaModule } from './infra/prisma/prisma.mobule';
+import { S3Module } from './infra/s3/s3.module';
+import { CatalogModule } from './application/catalog/catalog.module';
 
 @Module({
   imports: [
@@ -12,8 +13,9 @@ import { S3Module } from './infra/storage/s3/s3.module';
     }),
     AuthModule,
     UserModule,
-    DatabaseModule,
+    CatalogModule,
     S3Module,
+    PrismaModule,
   ],
 })
 export class AppModule {}

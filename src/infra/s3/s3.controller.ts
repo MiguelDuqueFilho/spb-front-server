@@ -20,7 +20,7 @@ const pngFileFilter = (req: any, file: any, callback) => {
 };
 
 // @UseGuards(JwtGuard)
-@Controller('api/s3')
+@Controller('s3')
 export class S3Controller {
   constructor(private readonly s3Service: S3Service) {}
 
@@ -39,7 +39,11 @@ export class S3Controller {
 
   @Get('get/catalog/:key')
   async getCatalog(@Param('key') key: string) {
-    return await this.s3Service.getS3File(key);
+    const file = await this.s3Service.getS3File(key);
+
+    delete file.Body;
+    delete file.Metadata;
+    return file;
   }
 
   @Get('delete/catalog/:key')

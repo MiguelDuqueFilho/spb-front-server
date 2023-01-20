@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaUserRepository } from '../../infra/database/prisma/repositories/prisma-user-repository';
+import { PrismaUserRepository } from '../../infra/prisma/repositories/prisma-user-repository';
 import { EditUserDto } from './dto';
 
 @Injectable()

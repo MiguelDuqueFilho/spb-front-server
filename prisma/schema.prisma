@@ -1,96 +1,88 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "linux-musl"]
+  previewFeatures = ["filteredRelationCount"]
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
   id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-
-  email     String  @unique
+  email     String   @unique
   hash      String
   firstName String?
   lastname  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
 
   @@map("users")
 }
 
 model FileEntity {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id           Int      @id @default(autoincrement())
   originalName String
   bucket       String
-  key          String @unique
+  key          String   @unique
   mimeType     String
   size         Int
   url          String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("FilesEntity")
 }
 
-model Service {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+model GrupoServico {
+  GrpServico String   @id @db.VarChar(15)
+  Descricao  String   @db.VarChar(255)
+  Eventos    Evento[]
+  createdAt  DateTime @default(now())
+  updateAt   DateTime @updatedAt
 
-  service     String  @unique // @db.VarChar(15)
-  description String // @db.VarChar(255)
-  domain      String //@db.VarChar(15)
-  Events      Event[]
-
-  @@map(name: "Services")
+  @@map(name: "GrupoServicos")
 }
 
-model Event {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+model Evento {
+  CodEvento    String        @id @db.VarChar(15)
+  NomeEvento   String?       @db.VarChar(255)
+  Fluxo        String        @db.VarChar(10)
+  GrupoServico GrupoServico? @relation(fields: [GrpServicoId], references: [GrpServico])
+  GrpServicoId String?       @db.VarChar(15)
+  IsConvert    Boolean       @default(false)
+  EventJson    Json          @default("[]")
+  Mensagens    Mensagem[]
+  createdAt    DateTime      @default(now())
+  updateAt     DateTime      @updatedAt
 
-  codEvent  String    @unique // @db.VarChar(15)
-  eventName String? //   @db.VarChar(255)
-  flow      String //   @db.VarChar(10)
-  serviceId Int? // @db.VarChar(15)
-  servico   Service?  @relation(fields: [serviceId], references: [id])
-  isConvert Boolean   @default(false)
-  eventJson String    @default("[]")
-  Messages  Message[]
-
-  @@map(name: "Events")
+  @@map(name: "Eventos")
 }
 
-model Message {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
+model Mensagem {
+  CodMsg          String   @id @db.VarChar(15)
+  Tag             String   @db.VarChar(255)
+  Descricao       String   @db.VarChar(255)
+  EntidadeOrigem  String   @db.VarChar(50)
+  EntidadeDestino String   @db.VarChar(50)
+  Eventos         Evento?  @relation(fields: [CodEventoId], references: [CodEvento])
+  CodEventoId     String   @db.VarChar(15)
+  createdAt       DateTime @default(now())
+  updateAt        DateTime @updatedAt
 
-  codMsg            String @unique // @db.VarChar(15)
-  tag               String // @db.VarChar(255)
-  description       String // @db.VarChar(255)
-  origenEntity      String // @db.VarChar(50)
-  destinationEntity String // @db.VarChar(50)
-  codEventId        String // @db.VarChar(15)
-  Events            Event? @relation(fields: [codEventId], references: [codEvent])
-
-  @@map(name: "Messages")
+  @@map(name: "Mensagens")
 }
 
 model MessageCreated {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt()
-
-  codMsg     String
-  xmlMessage String // @db.Xml
-  process    String  @default("PENDING") // PROCESSING - COMPLETED
-  status     String  @default("VALIDATED") // ERROR
+  id         Int      @id @default(autoincrement())
+  codMsg     String   @db.VarChar(15)
+  xmlMessage String   @db.Xml
+  process    String   @default("PENDING") // PROCESSING - COMPLETED
+  status     String   @default("VALIDATED") // ERROR
   error      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt()
 
   @@map(name: "MessagesCreated")
 }

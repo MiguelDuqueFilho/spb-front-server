@@ -1,18 +1,21 @@
 import { ConfigService } from '@nestjs/config';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaUserRepository } from '../../infra/database/prisma/repositories/prisma-user-repository';
+import { PrismaUserRepository } from '../../infra/prisma/repositories/prisma-user-repository';
 
 @Injectable({})
 export class AuthService {
+  logger = new Logger(AuthService.name);
+
   constructor(
     private config: ConfigService,
     private jwt: JwtService,
     private prismaUserRepository: PrismaUserRepository,
   ) {}
   async signup(dto: AuthDto) {
+    this.logger.debug('signup(dto: AuthDto)');
     //* generate password hash
     const hash = await argon.hash(dto.password);
 
@@ -23,6 +26,7 @@ export class AuthService {
   }
 
   async login(dto: AuthDto) {
+    this.logger.debug('login(dto: AuthDto)');
     //* find the user by email
 
     const user = await this.prismaUserRepository.findByEmail(dto);

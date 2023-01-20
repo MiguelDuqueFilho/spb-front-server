@@ -1,15 +1,18 @@
 import { PrismaService } from '../prisma.service';
 import { User } from '@prisma/client';
-import { EditUserDto } from '../../../../application/user/dto';
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { AuthDto } from '../../../../application/auth/dto';
+import { EditUserDto } from '../../../application/user/dto';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import { AuthDto } from '../../../application/auth/dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 @Injectable()
 export class PrismaUserRepository {
+  logger = new Logger(PrismaUserRepository.name);
+
   constructor(private prisma: PrismaService) {}
 
   async save(userId: number, dto: EditUserDto): Promise<User> {
+    this.logger.debug('save(userId: number, dto: EditUserDto): Promise<User>');
     const user = await this.prisma.user.update({
       where: {
         id: userId,
@@ -24,6 +27,7 @@ export class PrismaUserRepository {
   }
 
   async create(dto: AuthDto, hash: string): Promise<User> {
+    this.logger.debug('create(dto: AuthDto, hash: string): Promise<User>');
     try {
       const user = await this.prisma.user.create({
         data: {
@@ -45,15 +49,19 @@ export class PrismaUserRepository {
   }
 
   async findByEmail(dto: AuthDto): Promise<User> {
+    this.logger.debug('findByEmail(dto: AuthDto): Promise<User>');
     const user = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
       },
     });
+
     return user;
   }
 
   async findById(id: number): Promise<User> {
+    this.logger.debug('findById(id: number): Promise<User>');
+
     const user = await this.prisma.user.findUnique({
       where: {
         id,

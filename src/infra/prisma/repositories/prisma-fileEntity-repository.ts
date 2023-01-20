@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 import { FileEntity } from '@prisma/client';
-import { Replace } from '../../../../application/helpers/Replace';
+import { Replace } from '../../../application/helpers/Replace';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 
 @Injectable()
