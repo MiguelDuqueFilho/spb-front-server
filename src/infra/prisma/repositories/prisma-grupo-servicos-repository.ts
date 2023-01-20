@@ -1,16 +1,18 @@
-import { ForbiddenException, Logger } from '@nestjs/common';
+import { ForbiddenException, Logger, Injectable } from '@nestjs/common';
 import { GrupoServico, Prisma } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaService } from '../prisma.service';
 
+@Injectable()
 export class PrismaGrupoServicosRepository {
   logger = new Logger(PrismaGrupoServicosRepository.name);
+
   constructor(private prisma: PrismaService) {}
 
   async save(grpServicos: GrupoServico[]): Promise<Prisma.BatchPayload> {
-    this.logger.debug(`save(grpServicos: ${grpServicos})`);
-    this.logger.debug(this.prisma);
-
+    this.logger.debug(
+      `save(grpServicos: GrupoServico[]): Promise<Prisma.BatchPayload>`,
+    );
     try {
       const result = await this.prisma.grupoServico.createMany({
         data: grpServicos,
@@ -19,7 +21,7 @@ export class PrismaGrupoServicosRepository {
       return result;
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
-        throw new ForbiddenException('xxxxxxxx error');
+        throw new ForbiddenException('Error createMany');
       } else {
         throw error;
       }
@@ -68,7 +70,7 @@ export class PrismaGrupoServicosRepository {
   }
 
   async listService(service: string) {
-    this.logger.debug(`listService(service: ${service})`);
+    this.logger.debug(`listService(service: string)`);
     const result = await this.prisma.grupoServico.findUnique({
       where: {
         GrpServico: service,

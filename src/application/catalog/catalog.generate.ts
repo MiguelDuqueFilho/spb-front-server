@@ -148,7 +148,9 @@ export class CatalogGenerate {
     key: string,
     buffer: Buffer,
   ): Promise<CatalogGenerateResult> {
-    this.logger.debug(`CatalogGenerate - execute(${key}, buffer)`);
+    this.logger.debug(
+      `execute(key: string,buffer: Buffer) Promise<CatalogGenerateResult>`,
+    );
 
     const data = await pdfParse(buffer);
 

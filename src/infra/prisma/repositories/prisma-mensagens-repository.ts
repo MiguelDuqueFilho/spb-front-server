@@ -1,7 +1,8 @@
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Mensagem } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 
+@Injectable()
 export class PrismaMensagensRepository {
   logger = new Logger(PrismaMensagensRepository.name);
 

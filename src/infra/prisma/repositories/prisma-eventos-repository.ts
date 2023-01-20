@@ -1,7 +1,8 @@
-import { Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Evento } from '@prisma/client';
 import { PrismaService } from '../prisma.service';
 
+@Injectable()
 export class PrismaEventosRepository {
   logger = new Logger(PrismaEventosRepository.name);
   constructor(private prisma: PrismaService) {}
@@ -22,7 +23,7 @@ export class PrismaEventosRepository {
   }
 
   async save(eventos: Evento[]) {
-    this.logger.debug(`save(eventos: ${eventos})`);
+    this.logger.debug(`save(eventos: Evento[])`);
     const result = await this.prisma.evento.createMany({
       data: eventos as [],
       skipDuplicates: true,
@@ -31,7 +32,7 @@ export class PrismaEventosRepository {
   }
 
   async list(CodEvento: string) {
-    this.logger.debug(`list(CodEvento: ${CodEvento})`);
+    this.logger.debug(`list(CodEvento: string)`);
     const result = await this.prisma.evento.findUnique({
       where: {
         CodEvento,
@@ -44,7 +45,7 @@ export class PrismaEventosRepository {
   }
 
   async listByService(service: string) {
-    this.logger.debug(`listByService(service: ${service})`);
+    this.logger.debug(`listByService(service: string)`);
     const result = await this.prisma.evento.findMany({
       where: {
         GrpServicoId: service,
@@ -63,9 +64,7 @@ export class PrismaEventosRepository {
   }
 
   async update(CodEvento: string, dataUpdate: any) {
-    this.logger.debug(
-      `update(CodEvento: ${CodEvento}, dataUpdate: ${dataUpdate})`,
-    );
+    this.logger.debug(`update(CodEvento: string, dataUpdate: any)`);
     const result = await this.prisma.evento.update({
       where: {
         CodEvento,
