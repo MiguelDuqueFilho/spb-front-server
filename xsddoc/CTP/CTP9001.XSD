@@ -1,0 +1,2028 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:cat='http://www.bcb.gov.br/catalogomsg'
+    targetNamespace='http://www.bcb.gov.br/SPB/CTP9001.xsd'
+    xmlns='http://www.bcb.gov.br/SPB/CTP9001.xsd'
+    elementFormDefault='qualified'
+    version='5.04'>
+ 
+<!-- Definicao da mensagem -->
+ 
+<xs:element name='DOC' type='DOCComplexType'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfEvento>
+        <cat:Evento>CTP9001 - IF requisita registro de contrato de Swap</cat:Evento>
+        <cat:Descricao>Destinado à IF registrar contrato de SWAP</cat:Descricao>
+        <cat:Servico>Registro de Operações - Derivativos</cat:Servico>
+        <cat:TipoFluxo>Fluxo1</cat:TipoFluxo>
+      </cat:InfEvento>
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+ 
+<xs:complexType name='DOCComplexType'>
+  <xs:sequence>
+    <xs:element name='BCMSG' type='BCMSGComplexType'/>
+    <xs:element name='SISMSG' type='SISMSGComplexType'/>
+    <xs:element name='USERMSG' type='USERMSGSimpleType' minOccurs='0'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do BCMSG da mensagem -->
+ 
+<xs:complexType name='BCMSGComplexType'>
+  <xs:sequence>
+    <xs:element name='IdentdEmissor' type='ISPB'/>
+    <xs:element name='IdentdDestinatario' type='ISPB'/>
+    <xs:element name='IdentdContg' type='ISPB' minOccurs='0'/>
+    <xs:element name='IdentdOperad' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='IdentdOperadConfc' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='Grupo_Seq' type='Grupo_SeqComplexType' minOccurs='0'/>
+    <xs:element name='DomSist' type='DomSist'/>
+    <xs:element name='NUOp' type='NUOp'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_SeqComplexType'>
+  <xs:sequence>
+    <xs:element name='NumSeq' type='NumSeq'/>
+    <xs:element name='IndrCont' type='Indr'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do SISMSG da mensagem -->
+ 
+<xs:complexType name='SISMSGComplexType'>
+  <xs:choice>
+    <xs:element name='CTP9001' type='CTP9001ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Requisição de Registro de contrato de SWAP</cat:Mensagem>
+            <cat:Emissor>IF</cat:Emissor>
+            <cat:Destinatario>Câmara CTP</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CTP9001R1' type='CTP9001R1ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Resposta ao Requisitante de Registro de contrato de SWAP</cat:Mensagem>
+            <cat:Emissor>Câmara CTP</cat:Emissor>
+            <cat:Destinatario>IF</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:choice>
+</xs:complexType>
+ 
+<xs:complexType name='CTP9001ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='CTP9001'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlIF' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controleda IF</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBIF' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdPartCamr' type='IdentdPartCamr'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Participante Câmara</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador do participante da câmara</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodArea' type='CodArea' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Área</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do área</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdCtrapartCamr' type='IdentdPartCamr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Contraparte Câmara</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador da contraparte  na Câmara</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodOpCTP' type='CodOpCTP'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Operação CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Código Operação CETIP</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SubTpAtv' type='SubTpAtv'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>SubTipo Ativo</cat:NomeCampo>
+            <cat:DescricaoCampo>SubTipo do ativo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpAdesContrto' type='TpAdesContrto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Adesão Contrato</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de adesão do contrato.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrFinanc' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Financeiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor financeiro de uma operação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIni' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Início</cat:NomeCampo>
+            <cat:DescricaoCampo>Data início de pesquisa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtVenc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Vencimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de Vencimento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpFlxCx' type='TpFlxCx'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Fluxo Caixa</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de fluxo de caixa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPgtoPrem' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Pagamento Prêmio</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica se no contrato existirá o pagamento de prêmio.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DescContrto' type='DescEstend' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Descrição Contrato</cat:NomeCampo>
+            <cat:DescricaoCampo>Descrição complementar do contrato.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrReset' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Reset</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador se contrato possui reset.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPart_CtrapartTercCurva' type='IndrPart_Ctrapart' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Participante ou Contraparte Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica parte ou contraparte na terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PU_FtrRefCupomLimpTercCurva' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Preço_Unitário ou Fator Referência Cupom Limpo Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Preço unitário ou fator de referência do cupom limpo terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercJurosTercCurva' type='PercJuros' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Juros Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual de juros da terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxCTPTercCurva' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador CETIP Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador da CETIP para a terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpDeb_CredTercCurva' type='TpDebCred' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Débito ou Crédito Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo de um lançamento terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxCTPTercCurva' type='TaxCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa CETIP Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de juros CETIP terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrLimTercCurva' type='IndrLim' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Limite Terceira Curva</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador do tipo de limite terceira curva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtOp' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Operação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data do processamento da operação</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PeriodJuros' type='QtdDiasCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Periodicidade Juros</cat:NomeCampo>
+            <cat:DescricaoCampo>Frequência de pagamento de juros em prazo</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CritCalcJuros' type='CritCalcJuros' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Critério Cálculo Juros</cat:NomeCampo>
+            <cat:DescricaoCampo>Critério utilizado para o cálculo de juros.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIniCalcJuros' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Início Cálculo Juros</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de início para cálculo do juros</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PeriodAmtzc' type='QtdDiasCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Periodicidade Amortização</cat:NomeCampo>
+            <cat:DescricaoCampo>Frequência de amortização em prazo</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CritCalcAmtzc' type='CritCalcAmtzc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Critério Cálculo Amortização</cat:NomeCampo>
+            <cat:DescricaoCampo>Critério utilizado para o cálculo de amortização.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIniAmtzc' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Início Amortização</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de início para Amortização</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpAmtzc' type='TpAmtzc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Amortização</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de amortização do instrumento financeiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PU_FtrRefCupomLimp' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Preço_Unitário ou Fator Referência Cupom Limpo</cat:NomeCampo>
+            <cat:DescricaoCampo>Preço Unitário ou Fator de referência do cupom limpo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpIndxTermoCTP' type='CodClasseVCP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Indexador Termo CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo do indexador especial do contrato a termo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DescIndxTermoCTP' type='DescIndxEspcl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Descrição Indexador Termo CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Descrição do indexador do contrato a termo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxTermoCTP' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador Termo CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador de correção até o início do contrato a termo na CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercTermo' type='Percentual' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Termo</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor percentual do PU Par</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PUTermo' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Preço_Unitário Termo</cat:NomeCampo>
+            <cat:DescricaoCampo>Preço Unitário Termo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrTpContrto' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Tipo Contrato</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador do tipo do contrato: com ou sem barreiras ou opção  </cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodEsttDeriv' type='CodEsttDeriv' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Estratégia Derivativos</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da estratégia de derivativos.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumOpPart' type='NumOpCETIP'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Operação Participante</cat:NomeCampo>
+            <cat:DescricaoCampo>Número da operação informado pelo Participante</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrAmtzc' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Amortização</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de amortização sem troca de diferencial.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_CTP9001_InfContrto' type='Grupo_CTP9001_InfContrtoComplexType' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Informação Contrato</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrTitlar' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Titular</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica que o participante é titular da opção</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrPrem' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Prêmio</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do prêmio pago no início do contrato</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrRebt' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Rebate</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor Financeiro do Rebate</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrFormaLiquidRebt' type='IndrFormaLiquidRebt' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Forma Liquidação Rebate</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica a forma de liquidação do Rebate.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PrzLiquidRebt' type='QtdDias' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Prazo Liquidação Rebate</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade de Dias Úteis após ocorrência do Knock out para liquidação do rebate  </cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpContrtoSwap' type='TpContrtoSwap' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Contrato Swap</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo de contrato de Swap.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrPrem2' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Prêmio 2</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do prêmio pago na data de exercício da opção</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtExerc' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Exercício</cat:NomeCampo>
+            <cat:DescricaoCampo>Data do Exercício</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ModLiquid' type='ModLiq' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Modalidade Liquidação</cat:NomeCampo>
+            <cat:DescricaoCampo>Modalidade de Liquidação Financeira da Operação</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdBLCamr' type='IdentdPartCamr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Banco_Liquidante Câmara</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador do Banco Liquidante na Câmara</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ObsQualifcParm' type='Txt' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Observação Qualificação Parâmetros</cat:NomeCampo>
+            <cat:DescricaoCampo>Observações sobre a qualificação de parâmetros.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='QtdDiaDefsgCotPerTermo' type='QtdDias' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Quantidade Dias Defasagem Cotação Período Termo</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade de dias de defasagem de datas para captura de cotação da moeda a Termo. Exemplos: se igual a 1, a defasagem é D-1, se igual a 2, a defasagem é D-2, etc.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='CTP9001R1ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='CTP9001R1'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlIF' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controleda IF</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBIF' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlCTP' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle CTP</cat:NomeCampo>
+            <cat:DescricaoCampo>Número controle da CETIP</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdTitCTP' type='IdentdTitCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Título CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador único de um ativo custodiado na CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumOpCTP' type='NumOpCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Operação CTP</cat:NomeCampo>
+            <cat:DescricaoCampo>Número da operação CETIP - Será informado na solicitação de cobertura de  garantias</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SitOpCTP' type='SitOpCTP'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Situação Operação CTP</cat:NomeCampo>
+            <cat:DescricaoCampo>Situação de uma operação que foi comandada na Câmara CETIP</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrSit' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Situação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora da situação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_CTP9001_InfContrtoComplexType'>
+  <xs:sequence>
+    <xs:element name='IndrPart_Ctrapart' type='IndrPart_Ctrapart'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Participante ou Contraparte</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador se os dados informados se referem ao participante ou à contraparte</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdCliCamr' type='IdentdPartCamr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Cliente Câmara</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador do cliente na Câmara</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NomCli' type='Nome' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome Cliente</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome do cliente</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpCli' type='TpCli' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Cliente</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo de natureza jurídica do cliente</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercParmJurosCTP' type='PercJuros'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Parâmetro Juros CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual sobre parâmetro de flutuação de juros CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpIndxCTP' type='TpIndxCTP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Indexador CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo do indexador Cetip.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxCTP' type='CodIndexCETIP'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador do CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodComm' type='CodComm' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Commodity</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da "commodity".</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpAjusContrto' type='TpAjusContrto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Ajuste Contrato</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de ajuste a ser aplicado em um contrato.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_CTP9001_DtVerfc' type='Grupo_CTP9001_DtVerfcComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Data Verificação</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpCdrioComm' type='TpCdrioComm' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Calendário Commodity</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo do calendário da "commodity".</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrCdrioIntnlLibor' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Calendário Internacional Libor</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de calendário internacional para Libor.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DefsgDtCotVarcCaml' type='TpDefsg' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Defasagem Data Cotação Variação Cambial</cat:NomeCampo>
+            <cat:DescricaoCampo>Defasagem da cotação da variação cambial em relação à data de referência.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIndx' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Indexador</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de referencia do indexador</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxCTP' type='TaxCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de juros CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxEspcl' type='CodClasseVCP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador Especial</cat:NomeCampo>
+            <cat:DescricaoCampo>Código indexador especial.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DescIndxEspcl' type='DescIndxEspcl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Descrição Indexador Especial</cat:NomeCampo>
+            <cat:DescricaoCampo>Descrição do Indexador Especial</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxLibor' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador Libor</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador da curva Libor.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='UniddFreqPgto' type='TpFreqPgto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Unidade Freqüência Pagamento</cat:NomeCampo>
+            <cat:DescricaoCampo>Unidade de freqüência de pagamento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DefsgDtRef' type='TpDefsg' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Defasagem Data Referência</cat:NomeCampo>
+            <cat:DescricaoCampo>Defasagem em relação à data de referência.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxVarcCaml' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador Variação Cambial</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador de variação cambial.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxCamNegcd' type='TaxOpcao' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa Câmbio Negociada</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de câmbio negociada nas operações de Repo, operações definitivas, Repo Overnight ou Contrato de Termo de Moedas.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='AlqIR' type='PercJuros' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Alíquota IR</cat:NomeCampo>
+            <cat:DescricaoCampo>Alíquota do Imposto de Renda.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxJurosTJMI' type='TaxJurosCTP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa Juros TJMI</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de juros da curva TJMI (Taxa de Juros Mercado Internacional).</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpTrocaFlxCx' type='TpTrocaFlxCx' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Troca Fluxo Caixa</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo da troca de fluxo de caixa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PU_FtrRef' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Preço_Unitário ou Fator Referência</cat:NomeCampo>
+            <cat:DescricaoCampo>Preço Unitário ou Fator de referência.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxIntmdc' type='TaxaIntmdc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa Intermediação</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de intermediação na operação</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxComis' type='TaxaIntmdc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa Comissão</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de comissão.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtTR' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data TR</cat:NomeCampo>
+            <cat:DescricaoCampo>Data da TR.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercLimInfr' type='PercJuros' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Limite Inferior</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual limite inferior.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercLimSup' type='PercJuros' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Limite Superior</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual limite superior.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrCotCupomLimpMoeda' type='VlrCotCupomLimpMoeda' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Cotação Cupom Limpo Moeda</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da cotação cupom limpo moeda ou contação para curva Valor Contratado entre as Partes (VCP).</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoa' type='TpPessoa' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo pessoa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPF' type='CNPJ_CPF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrCestaGar' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Cesta Garantias</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica se o contrato possui cesta de garantias.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpDeb_CredTax' type='TpDebCred' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Débito ou Crédito Taxa</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica o tipo de um lançamento taxa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPart_CtrapartTrigIn' type='IndrPart_Ctrapart' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Participante ou Contraparte Trigger In</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica parte ou contraparte do trigger in.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ParmRefTrigIn' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Parâmetro Referência Trigger In</cat:NomeCampo>
+            <cat:DescricaoCampo>Parâmetro de referência para fator, PU ou Taxa, do trigger in.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxCTPTrigIn' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador CETIP Trigger In</cat:NomeCampo>
+            <cat:DescricaoCampo>Código Indexador CETIP para verificação de trigger in de contrato.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPeriodTrigIn' type='IndrPeriod' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Periodicidade Trigger In</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de periodicidade de verificação do parâmetro do trigger in.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPart_CtrapartTrigOut' type='IndrPart_Ctrapart' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Participante ou Contraparte Trigger Out</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica parte ou contraparte do trigger out.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ParmRefTrigOut' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Parâmetro Referência Trigger Out</cat:NomeCampo>
+            <cat:DescricaoCampo>Parâmetro de referência para fator, PU ou Taxa, do trigger out.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxCTPTrigOut' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador CETIP Trigger Out</cat:NomeCampo>
+            <cat:DescricaoCampo>Código Indexador CETIP para verificação de trigger in de contrato.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPeriodTrigOut' type='IndrPeriod' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Periodicidade Trigger Out</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de periodicidade de verificação do parâmetro do trigger out.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_CTP9001_InfLim' type='Grupo_CTP9001_InfLimComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Informação Limite</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_CTP9001_DtVerfcComplexType'>
+  <xs:sequence>
+    <xs:element name='DtVerfcComm' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Verificação Commodity</cat:NomeCampo>
+            <cat:DescricaoCampo>Data da verificação da "commodity".</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercVlrBase' type='Percentual'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Valor Base</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual do valor base que irá compor a média asiática.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_CTP9001_InfLimComplexType'>
+  <xs:sequence>
+    <xs:element name='IndrLim' type='IndrLim'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Limite</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador do tipo de Limite: se superior ou inferior</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='FtrLim' type='PU' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Fator Limite</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor absoluto atribuído como limite superior ou inferior</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='PercParmJurosLimCTP' type='Percentual' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Percentual Parâmetro Juros Limite CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Percentual sobre parâmetro de flutuação de juros ou sobre o indexador limitador CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodIndxLimCTP' type='CodIndexCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Indexador Limite CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do indexador limitador da CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TaxLimCTP' type='TaxCETIP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Taxa Limite CETIP</cat:NomeCampo>
+            <cat:DescricaoCampo>Taxa de juros limitadora da CETIP.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do USRMSG da mensagem -->
+ 
+<xs:simpleType name='USERMSGSimpleType'>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1048576'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<!-- Definicao do tipos simples do evento -->
+ 
+<xs:simpleType name='DomSist'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Domínio de sistema</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='5'/>
+    <xs:maxLength value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdOperad'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador pessoal do operador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='32'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Indr'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador "Sim" ou "Não"</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ISPB'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador da IF e Câmara junto ao Banco Central para o Sistema de Pagamentos Brasileiro.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='8'/>
+    <xs:maxLength value='8'/>
+    <xs:pattern value='[0-9]{8}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeq'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número Seqüencial que indica a ordem das mensagens particionadas.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='9'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NUOp'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número único da operação. Formato: para o Domínio de Sistema SPB02 = XXXXXXXXAAMMDDSSSSSSSSS em que XXXXXXXX - ISPB; AAMMDD - data; SSSSSSSSS - sequencial. Para os demais domínios de sistema = XXXXXXXXAAAAMMDDSSSSSSS em que XXXXXXXX - ISPB ou CNPJ de 8 posições; AAAAMMDD - data; SSSSSSS - sequencial.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='23'/>
+    <xs:maxLength value='23'/>
+    <xs:pattern value='[0-9]{23}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CNPJ_CPF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Identificação da Pessoa Jurídica no Cadastro Nacional de Pessoa Jurídica ou o Número no Cadastro de Pessoa Física. 2 - No caso de transferência para pessoas isentas de CNPJ ou CPF, o campo CNPJ ou CPF deve ser preenchido com zero.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='14'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodArea'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da área ou família de agrupamento de participantes</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='20'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodClasseVCP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código numérico das classes usadas na qualificação de contratos VCP (Valor Contratado entre as Partes).</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodComm'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da "commodity".</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='10'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodEsttDeriv'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da estratégia de derivativos.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='11'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodIndexCETIP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indexador do ativo. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='3'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMsg'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da mensagem do sistema associado ao evento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='7'/>
+    <xs:maxLength value='9'/>
+    <xs:pattern value='[A-Z]{3}[0-9]{4}(E|R1|R2|R3)?'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodOpCTP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código Operação CETIP</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ControleIF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Controle da IF</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='20'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CritCalcAmtzc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Critério de cálculo de amortização.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CritCalcJuros'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Critério de cálculo de juros.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='DescEstend'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Campo descritivo estendido com até 320 caracteres.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='320'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='DescIndxEspcl'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Descriçao do Indexador Especial</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='15'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdPartCamr'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador do participante da câmara</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='8'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdTitCETIP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código identificador de um título na CETIP. Em qualquer sistema preencher com o código do título.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='14'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IndrFormaLiquidRebt'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador da forma de liquidação do Rebate</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IndrLim'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador do tipo de limite.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IndrPart_Ctrapart'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador se os dados informados se referem ao participante ou à contraparte</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IndrPeriod'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador de periodicidade de verificação do parâmetro do trigger. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ModLiq'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Modalidade de Liquidação Financeira da Operação</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Nome'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Nome</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='80'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumOpCETIP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número da operação CETIP.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='16'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Percentual'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número percentual. Até três inteiros e dois decimais. Deve ser informado o ponto separador. Exemplo:para 25% informe 25;para 40,5% informe 40.5;para 98,75% informe 98.75</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='5'/>
+    <xs:fractionDigits value='2'/>
+    <xs:minExclusive value='-1000'/>
+    <xs:maxExclusive value='1000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='PercJuros'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número percentual. Até três inteiros e cinco decimais. Deve ser informado o ponto separador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='8'/>
+    <xs:fractionDigits value='5'/>
+    <xs:minExclusive value='-1000'/>
+    <xs:maxExclusive value='1000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='PU'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Preço unitário de um título. Até 10 inteiros e 8 decimais. Deve ser informado o ponto separador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='18'/>
+    <xs:fractionDigits value='8'/>
+    <xs:minExclusive value='-10000000000'/>
+    <xs:maxExclusive value='10000000000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='QtdDias'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Quantidade de Dias Úteis ou Corridos</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='6'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='QtdDiasCETIP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Quantidade de dias corridos</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SitOpCTP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Situação de uma operação que foi comandada na Câmara CETIP.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='3'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SubTpAtv'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo do subativo. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='4'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TaxaIntmdc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor Percentual da Taxa de Intermediação na Operação.Até dois inteiros e oito decimais. Deve ser informado o ponto separador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='10'/>
+    <xs:fractionDigits value='8'/>
+    <xs:minExclusive value='-100'/>
+    <xs:maxExclusive value='100'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TaxCETIP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Taxa de juros CETIP. Até cinco inteiros e quatro decimais. Deve ser informado o ponto separador caso tenha decimais. O valor menor que zero será precedido pelo sinal "-".</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='9'/>
+    <xs:fractionDigits value='4'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TaxJurosCTP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Taxa de juros do instrumento financeiro. Até quatro inteiros e quatro decimais. Deve ser informado o ponto separador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='8'/>
+    <xs:fractionDigits value='4'/>
+    <xs:minExclusive value='-10000'/>
+    <xs:maxExclusive value='10000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TaxOpcao'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Taxa de Opção. Até 10 inteiros e 15 decimais. Deve ser informado o ponto separador caso tenha decimais. Exemplo: para R$1,00 informe 1 e para R$1,7567400 informe 1.75674.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='25'/>
+    <xs:fractionDigits value='15'/>
+    <xs:minExclusive value='-10000000000'/>
+    <xs:maxExclusive value='10000000000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpAdesContrto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de adesão de contrato.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpAjusContrto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de ajuste a ser aplicado em um contrato.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpAmtzc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de amortização do instrumento financeiro</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpCdrioComm'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo do calendário da commodity.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpCli'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indica o tipo da natureza jurídica do cliente</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpContrtoSwap'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indica o tipo de contrato de swap.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpDebCred'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indica o tipo de lançamento, se Débito ou Crédito.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpDefsg'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de defasagem. Para valores menores que zero, o valor será precedido pelo sinal "-". Exemplo: para 2 negativo informe -2</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpFlxCx'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de fluxo de caixa.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpFreqPgto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de Freqüência de pagamento</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpIndxCTP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo do indexador CETIP para derivativos.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpPessoa'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo Pessoa Destinatário.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpTrocaFlxCx'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo da troca de fluxo de caixa.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Txt'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Campo livre para informação de comunicados.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='255'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Valor'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor. Até dezessete inteiros e dois decimais e sinalizado. Para valores menores que zero, o valor será precedido pelo sinal "-". Exemplo: para 20 negativo informe -20 . Deve ser informado o ponto separador caso tenha  decimais. Exemplo: para R$100,00 informe 100; para R$100,10 informe 100.1; para R$100,11 informe 100.11; para R$100,11 negativo informe -100.11</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='19'/>
+    <xs:fractionDigits value='2'/>
+    <xs:minExclusive value='-100000000000000000'/>
+    <xs:maxExclusive value='100000000000000000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='VlrCotCupomLimpMoeda'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor da cotação cupom limpo moeda ou cotação para curva Valor Contratado entre as Partes (VCP). Até 10 inteiros e 8 decimais. Deve ser informado ponto como separador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='18'/>
+    <xs:fractionDigits value='8'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+</xs:schema>

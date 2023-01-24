@@ -6,10 +6,12 @@ import {
   Logger,
   Post,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 
 @Controller('auth')
+@ApiTags('auth')
 export class AuthController {
   logger = new Logger(AuthController.name);
 

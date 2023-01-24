@@ -4,12 +4,14 @@ import { PrismaMensagensRepository } from '../../infra/prisma/repositories/prism
 import { PrismaGrupoServicosRepository } from '../../infra/prisma/repositories/prisma-grupo-servicos-repository';
 import { S3Service } from '../../infra/s3/s3.service';
 import { CatalogGenerate } from './catalog.generate';
+import { PrismaFileEntityRepository } from '../../infra/prisma/repositories/prisma-fileEntity-repository';
 
 @Injectable()
 export class CatalogService {
   logger = new Logger(CatalogService.name);
 
   constructor(
+    private readonly prismaFileEntityRepository: PrismaFileEntityRepository,
     private readonly s3Service: S3Service,
     private readonly catalogGenerate: CatalogGenerate,
     private readonly prismaGrupoServicosRepository: PrismaGrupoServicosRepository,
@@ -43,5 +45,11 @@ export class CatalogService {
     delete resultGenerate.cadMensagens;
 
     return { ...resultGenerate, resultServices, resultEvents, resultMessages };
+  }
+
+  async listAll() {
+    this.logger.debug('listAll()');
+
+    return await this.prismaFileEntityRepository.findAll();
   }
 }

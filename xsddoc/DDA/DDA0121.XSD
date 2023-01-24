@@ -1,0 +1,2656 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:cat='http://www.bcb.gov.br/catalogomsg'
+    targetNamespace='http://www.bcb.gov.br/SPB/DDA0121.xsd'
+    xmlns='http://www.bcb.gov.br/SPB/DDA0121.xsd'
+    elementFormDefault='qualified'
+    version='5.04'>
+ 
+<!-- Definicao da mensagem -->
+ 
+<xs:element name='DOC' type='DOCComplexType'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfEvento>
+        <cat:Evento>DDA0121 - Participante informa inclusão de terceiro autorizado</cat:Evento>
+        <cat:Descricao>Destinado ao Participante Recebedor informar inclusão de terceiro autorizado por boleto de pagamento.</cat:Descricao>
+        <cat:Servico>Manutenção Cadastral de Boletos de Pagamento</cat:Servico>
+        <cat:TipoFluxo>Fluxo15</cat:TipoFluxo>
+      </cat:InfEvento>
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+ 
+<xs:complexType name='DOCComplexType'>
+  <xs:sequence>
+    <xs:element name='BCMSG' type='BCMSGComplexType'/>
+    <xs:element name='SISMSG' type='SISMSGComplexType'/>
+    <xs:element name='USERMSG' type='USERMSGSimpleType' minOccurs='0'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do BCMSG da mensagem -->
+ 
+<xs:complexType name='BCMSGComplexType'>
+  <xs:sequence>
+    <xs:element name='IdentdEmissor' type='ISPB'/>
+    <xs:element name='IdentdDestinatario' type='ISPB'/>
+    <xs:element name='IdentdContg' type='ISPB' minOccurs='0'/>
+    <xs:element name='IdentdOperad' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='IdentdOperadConfc' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='Grupo_Seq' type='Grupo_SeqComplexType' minOccurs='0'/>
+    <xs:element name='DomSist' type='DomSist'/>
+    <xs:element name='NUOp' type='NUOp'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_SeqComplexType'>
+  <xs:sequence>
+    <xs:element name='NumSeq' type='NumSeq'/>
+    <xs:element name='IndrCont' type='Indr'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do SISMSG da mensagem -->
+ 
+<xs:complexType name='SISMSGComplexType'>
+  <xs:choice>
+    <xs:element name='DDA0121' type='DDA0121ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Informa inclusão de terceiro autorizado</cat:Mensagem>
+            <cat:Emissor>Participante Recebedor</cat:Emissor>
+            <cat:Destinatario>DDA</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DDA0121R1' type='DDA0121R1ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Resposta ao Informa inclusão de terceiro autorizado</cat:Mensagem>
+            <cat:Emissor>DDA</cat:Emissor>
+            <cat:Destinatario>Participante Recebedor</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DDA0121R2' type='DDA0121R2ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Aviso a Terceiros sobre inclusão de terceiro autorizado</cat:Mensagem>
+            <cat:Emissor>DDA</cat:Emissor>
+            <cat:Destinatario>Participante</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DDA0121R3' type='DDA0121R3ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Aviso a Notificados sobre inclusão de terceiro autorizado</cat:Mensagem>
+            <cat:Emissor>DDA</cat:Emissor>
+            <cat:Destinatario>Participante</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:choice>
+</xs:complexType>
+ 
+<xs:complexType name='DDA0121ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='DDA0121'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlPart' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle Participante</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do participante.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrPrincipal' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Principal</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor principal no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrAdmtd' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Administrado</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor administrado no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcTit' type='NumIdentcTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do Boleto de Pagamento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcTerc' type='NumIdentcTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de Identificação do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTerc' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do cadastro do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaPagdrAutzdr' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFPagdrAutzdr' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaTerc' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo Pessoa Terceiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFTerc' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF de Terceiro autorizado a consultar os bloquetos de cobrança do Sacado Eletrônico.Podem ser autorizados “n” Sacados Eletrônicos (CPF, CNPJ Completo ou CNPJ Raiz, que poderá consultar as filiais)</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='DDA0121R1ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='DDA0121R1'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlPart' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle Participante</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do participante.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrPrincipal' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Principal</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor principal no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrAdmtd' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Administrado</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor administrado no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlDDA' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcTerc' type='NumIdentcTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de Identificação do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTerc' type='NumRefCad'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do cadastro do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrDDA' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Data Hora DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='DDA0121R2ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='DDA0121R2'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrPrincipal' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Principal</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor principal no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrAdmtd' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Administrado</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor administrado no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlDDA' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcTit' type='NumIdentcTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do Boleto de Pagamento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcTerc' type='NumIdentcTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de Identificação do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTerc' type='NumRefCad'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do cadastro do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaPagdrAutzdr' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFPagdrAutzdr' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaTerc' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo Pessoa Terceiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFTerc' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF de Terceiro autorizado a consultar os bloquetos de cobrança do Sacado Eletrônico.Podem ser autorizados “n” Sacados Eletrônicos (CPF, CNPJ Completo ou CNPJ Raiz, que poderá consultar as filiais)</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrDDA' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Data Hora DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='DDA0121R3ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='DDA0121R3'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlPart' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle Participante</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do participante.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrPrincipal' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Principal</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor principal no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrAdmtd' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Administrado</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor administrado no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlDDA' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controle do DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_Tit' type='Grupo_DDA0121R3_TitComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Título</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrDDA' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora DDA</cat:NomeCampo>
+            <cat:DescricaoCampo>Data Hora DDA</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_TitComplexType'>
+  <xs:sequence>
+    <xs:element name='NumIdentcTit' type='NumIdentcTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do Boleto de Pagamento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTit' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência do cadastro do Boleto de Pagamento</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumSeqAtlzCadTit' type='NumSeqAtlzCadDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Sequência Atualização Cadastro Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de sequência da atualização do cadastro do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartDestinatario' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Destinatário</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante destinatário no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodPartDestinatario' type='CodIF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Participante Destinatário</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do participante destinatário utilizado na compensação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaBenfcrioOr' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFBenfcrioOr' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Nom_RzSocBenfcrioOr' type='Nom_RzSoc'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome ou Razão Social Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome ou razão social do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NomFantsBenfcrioOr' type='Nome' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome Fantasia Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome fantasia do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='LogradBenfcrioOr' type='RuaRem' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Logradouro Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Rua, número e complemento do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CidBenfcrioOr' type='CidEnd' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Cidade Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Cidade do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='UFBenfcrioOr' type='UF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>UF Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>Sigla da unidade da federação do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CEPBenfcrioOr' type='CEP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CEP Beneficiário Original</cat:NomeCampo>
+            <cat:DescricaoCampo>CEP do beneficiário original.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaBenfcrioFinl' type='TpPessoa' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Beneficiário Final</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do beneficiário final.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFBenfcrioFinl' type='CNPJ_CPF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Beneficiário Final</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do beneficiário final.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Nom_RzSocBenfcrioFinl' type='Nom_RzSoc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome ou Razão Social Beneficiário Final</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome ou razão social do beneficiário final.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NomFantsBenfcrioFinl' type='Nome' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome Fantasia Beneficiário Final</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome fantasia do beneficiário final.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaPagdr' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFPagdr' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Pagador </cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Nom_RzSocPagdr' type='Nom_RzSoc'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome ou Razão Social Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome ou razão social do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NomFantsPagdr' type='Nome' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome Fantasia Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome fantasia do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='LogradPagdr' type='RuaRem' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Logradouro Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Rua, número e complemento do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CidPagdr' type='CidEnd' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Cidade Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Cidade do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='UFPagdr' type='UF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>UF Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>Sigla da unidade da federação do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CEPPagdr' type='CEP' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CEP Pagador</cat:NomeCampo>
+            <cat:DescricaoCampo>CEP do pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpIdentcSacdrAvalst' type='TpIdentcSacdrAvalst'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Identificação Sacador Avalista</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de identificação do sacador avalista.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentcSacdrAvalst' type='IdentcSacdrAvalst' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificação Sacador Avalista</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificação do sacador avalista.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Nom_RzSocSacdrAvalst' type='Nom_RzSoc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome ou Razão Social Sacador Avalista</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome ou Razão Social do Sacador Avalista</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodCartTit' type='CodCartTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Carteira Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Código para identificar as características dos títulos dentro das modalidades de cobrança existentes no banco </cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodMoedaCNAB' type='CodMoedaCNAB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Moeda CNAB</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da Moeda no padrão CNAB</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IdentdNossoNum' type='IdentdNossoNum'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Identificador Nosso Número</cat:NomeCampo>
+            <cat:DescricaoCampo>Identificador do Título no Banco – o “Nosso Número”.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCodBarras' type='NumCodBarras'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Código Barras</cat:NomeCampo>
+            <cat:DescricaoCampo>Número referente ao código de barras.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumLinhaDigtvl' type='NumLinhaDigtvl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Linha Digitável</cat:NomeCampo>
+            <cat:DescricaoCampo>Número referente à linha digitável do código de barras do título.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtVencTit' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Vencimento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de Vencimento do Título. Esta data deverá estar dentro do período de antecedência ou atraso estabelecido</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrTit' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor nominal do boleto de pagamento, não considerando abatimento ou dedução.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumDocTit' type='NumDocTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Documento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Número do Documento do Título utilizado pelo Cedente</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodEspTit' type='CodEspTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Espécie Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Código para identificar o tipo de título de cobrança. Códigos adotados pela FEBRABAN</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtEmsTit' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Emissão Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de emissão do título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='QtdDiaPrott' type='QtdDias' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Quantidade Dias Protesto</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade de dias corridos para protesto.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtLimPgtoTit' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Limite Pagamento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data limite para pagamento do título. Deve ser maior ou igual à data de vencimento da operação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPgtoTit' type='TpPgtoTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pagamento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de Pagamento do Título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumParcl' type='NumSeqInf' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Parcela</cat:NomeCampo>
+            <cat:DescricaoCampo>Número da parcela.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='QtdTotParcl' type='QtdParcl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Quantidade Total Parcela</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade total de parcelas.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrTitNegcd' type='Indr'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Título Negociado</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de Título Negociado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrBloqPgto' type='Indr'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Bloqueio Pagamento</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de bloqueio do boleto de pagamento para pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrPgtoParcl' type='Indr'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Pagamento Parcial</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica se o boleto de pagamento permite pagamento parcial.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='QtdPgtoParcl' type='QtdParcl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Quantidade Pagamento Parcial</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade de pagamentos parciais.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrAbattTit' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Abatimento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor total dos abatimentos para o boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_JurosTit' type='Grupo_DDA0121R3_JurosTitComplexType' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Juros Título</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_MultaTit' type='Grupo_DDA0121R3_MultaTitComplexType' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Multa Título</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_DesctTit' type='Grupo_DDA0121R3_DesctTitComplexType' minOccurs='0' maxOccurs='3'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Desconto Título</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_NotaFis' type='Grupo_DDA0121R3_NotaFisComplexType' minOccurs='0' maxOccurs='30'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Nota Fiscal</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpVlr_PercMinTit' type='TpVlr_Perc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Valor ou Percentual Mínimo Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica se representa um valor ou um percentual mínimo do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Vlr_PercMinTit' type='Vlr_PercDDA' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor ou Percentual Mínimo Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor ou percentual mínimo do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpVlr_PercMaxTit' type='TpVlr_Perc' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Valor ou Percentual Máximo Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Identifica se representa um valor ou um percentual máximo do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Vlr_PercMaxTit' type='Vlr_PercDDA' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor ou Percentual Máximo Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor ou percentual máximo do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpModlCalc' type='TpModlCalc'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Modelo Cálculo</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de modelo de cálculo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpAutcRecbtVlrDivgte' type='TpAutcRecbtVlrDivgte'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Autorização Recebimento Valor Divergente</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de autorização do cliente beneficiário ou do participante destinatário para recebimento de valor divergente para instruir o participante recebedor.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_Calc' type='Grupo_DDA0121R3_CalcComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Cálculo</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TxtInfBenfcrio' type='Txt100' minOccurs='0' maxOccurs='100'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Texto Informação Beneficiário</cat:NomeCampo>
+            <cat:DescricaoCampo>Este campo será utilizado para envio de informações do beneficiário para o cliente pagador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlActe' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Aceite</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do aceite</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumSeqAtlzActe' type='NumSeqAtlzCadDDA' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Sequência Atualização Aceite</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de sequência da atualização do aceite</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrActe' type='IndrActe' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Aceite</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador se foi aceita ou não a especificação da Conta do Participante.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_Terc' type='Grupo_DDA0121R3_TercComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Terceiro</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SitTit' type='SitTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Situação Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Situação do Título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrSit' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Situação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora da situação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='QtdPgtoParclRegtd' type='QtdParcl' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Quantidade Pagamento Parcial Registrado</cat:NomeCampo>
+            <cat:DescricaoCampo>Quantidade de pagamentos parciais registrados.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrSldTotAtlPgtoTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Saldo Total Atual Pagamento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor de saldo total atual para pagamento do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SitTitPgto' type='SitTitPgto'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Situação Título Pagamento</cat:NomeCampo>
+            <cat:DescricaoCampo>Situação do boleto de pagamento para pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_BaixaOperac' type='Grupo_DDA0121R3_BaixaOperacComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Baixa Operacional</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_BaixaEft' type='Grupo_DDA0121R3_BaixaEftComplexType' minOccurs='0' maxOccurs='unbounded'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Baixa Efetiva</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_JurosTitComplexType'>
+  <xs:sequence>
+    <xs:element name='DtJurosTit' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Juros Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de Início da cobrança de juros. Deve ser posterior á data de vencimento da operação</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodJurosTit' type='CodJurosTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Juros Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Código para identificação do tipo de pagamento de juros de mora.  Códigos adotados pela FEBRABAN</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Vlr_PercJurosTit' type='Vlr_PercDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor ou Percentual Juros Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor ou Percentual sobre o valor do Título a ser cobrado Mora</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_MultaTitComplexType'>
+  <xs:sequence>
+    <xs:element name='DtMultaTit' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Multa Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data a partir da qual se cobra a Multa</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodMultaTit' type='CodMultaTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Multa Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da multa do título. Códigos adotados pela FEBRABAN</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Vlr_PercMultaTit' type='Vlr_PercDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor ou Percentual Multa Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor ou Percentual da Multa a ser cobrada para o Título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_DesctTitComplexType'>
+  <xs:sequence>
+    <xs:element name='DtDesctTit' type='xs:date' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Desconto Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data limite do Desconto do título </cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodDesctTit' type='CodDesctTit'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Desconto Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Código para identificação do critério de desconto que deve ser concedido</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Vlr_PercDesctTit' type='Vlr_PercDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor ou Percentual Desconto Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor ou Percentual sobre o valor do Título a ser descontado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_NotaFisComplexType'>
+  <xs:sequence>
+    <xs:element name='NumNotaFis' type='NumNotaFis'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Nota Fiscal</cat:NomeCampo>
+            <cat:DescricaoCampo>Número da Nota Fiscal</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtEmsNotaFis' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Emissão Nota Fiscal</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de emissão da Nota Fiscal</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrNotaFis' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Nota Fiscal</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da Nota Fiscal</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_CalcComplexType'>
+  <xs:sequence>
+    <xs:element name='VlrCalcdJuros' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Calculado Juros</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor calculado dos juros.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrCalcdMulta' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Calculado Multa</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor calculado de multa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrCalcdDesct' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Calculado Desconto</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor calculado do desconto.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrTotCobrar' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Total Cobrar</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor total a cobrar.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtValiddCalc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Validade Cálculo</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de validade do cálculo.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_TercComplexType'>
+  <xs:sequence>
+    <xs:element name='NumIdentcTerc' type='NumIdentcTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de Identificação do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTerc' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do cadastro do Terceiro Autorizado</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaPagdrAutzdr' type='TpPessoa' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de pessoa do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFPagdrAutzdr' type='CNPJ_CPF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Pagador Autorizador</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do pagador autorizador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpPessoaTerc' type='TpPessoa'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo Pessoa Terceiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFTerc' type='CNPJ_CPF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF de Terceiro autorizado a consultar os bloquetos de cobrança do Sacado Eletrônico.Podem ser autorizados “n” Sacados Eletrônicos (CPF, CNPJ Completo ou CNPJ Raiz, que poderá consultar as filiais)</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SitTerc' type='SitTerc'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Situação Terceiro</cat:NomeCampo>
+            <cat:DescricaoCampo>Situação do terceiro autorizado do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_BaixaOperacComplexType'>
+  <xs:sequence>
+    <xs:element name='NumIdentcBaixaOperac' type='NumIdentcTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlBaixaOperac' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumSeqAtlzBaixaOperac' type='NumSeqAtlzCadDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Sequência Atualização Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número sequência de atualização da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefCadTitBaixaOperac' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Cadastro Título Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência do cadastro do Boleto de Pagamento informado no envio da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlCadTitBaixaOperac' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Cadastro Título Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual do cadastro do Boleto de Pagamento durante o recebimento da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrBaixaOperac' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor da baixa operacional no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodPartRecbdrBaixaOperac' type='CodIF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Participante Recebedor Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do participante recebedor da baixa operacional do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpBaixaOperac' type='TpBaixaOperac'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='SitBaixaOperac' type='SitBaixaOperac'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Situação Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Situação da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrSitBaixaOperac' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Situação Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora de situação da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_DettBaixaOperac' type='Grupo_DDA0121R3_DettBaixaOperacComplexType' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Detalhamento Baixa Operacional</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_DDA0121R3_CanceltBaixaOperac' type='Grupo_DDA0121R3_CanceltBaixaOperacComplexType' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Cancelamento Baixa Operacional</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_DettBaixaOperacComplexType'>
+  <xs:sequence>
+    <xs:element name='TpPessoaPort' type='TpPessoa' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Pessoa Portador</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de Pessoa do portador.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CNPJ_CPFPort' type='CNPJ_CPF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>CNPJ ou CPF Portador</cat:NomeCampo>
+            <cat:DescricaoCampo>CNPJ ou CPF do portador, responsável pelo pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Nom_RzSocPort' type='Nome' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Nome ou Razão Social Portador</cat:NomeCampo>
+            <cat:DescricaoCampo>Nome completo ou razão social do responsável pelo pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrRecbtTit' type='xs:dateTime' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Recebimento Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora do recebimento do título.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrProcBaixaOperac' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Processamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora do processamento da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtProcBaixaOperac' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Processamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Data do processamento da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrBaixaOperacTit' type='Valor'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Baixa Operacional Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da baixa operacional do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCodBarrasBaixaOperac' type='NumCodBarras'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Código Barras Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Número do código de barras da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CanPgtoBaixaOperac' type='CanPgto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Canal Pagamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Canal de pagamento baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='MeioPgtoBaixaOperac' type='MeioPgto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Meio Pagamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Meio de pagamento da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='IndrOpContg' type='Indr' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Indicador Operação Contingência</cat:NomeCampo>
+            <cat:DescricaoCampo>Indicador de operação em contingência.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_CanceltBaixaOperacComplexType'>
+  <xs:sequence>
+    <xs:element name='DtHrCanceltBaixaOperac' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Cancelamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora do cancelamento da baixa operacional.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtCanceltBaixaOperac' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Cancelamento Baixa Operacional</cat:NomeCampo>
+            <cat:DescricaoCampo>Data do cancelamento da baixa operacional</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_DDA0121R3_BaixaEftComplexType'>
+  <xs:sequence>
+    <xs:element name='NumIdentcBaixaEft' type='NumIdentcTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da baixa efetiva</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumRefAtlBaixaEft' type='NumRefCad' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Referência Atual Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de referência atual da baixa efetiva</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumSeqAtlzBaixaEft' type='NumSeqAtlzCadDDA'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Sequência Atualização Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de sequência da atualização da baixa efetiva</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumIdentcBaixaOperacBaixaEft' type='NumIdentcTit' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Identificação Baixa Operacional Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da baixa operacional no recebimento da confirmação da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='TpBaixaEft' type='TpBaixaEft'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Tipo Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Tipo de baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBPartRecbdrBaixaEft' type='ISPB' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB Participante Recebedor Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação do participante recebedor da baixa efetiva  no Sistema de Pagamentos Brasileiro.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodPartRecbdrBaixaEft' type='CodIF' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Participante Recebedor Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Código do participante recebedor da baixa efetiva do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrProcBaixaEft' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Processamento Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora do processamento da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtProcBaixaEft' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Processamento Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Data do processamento da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrBaixaEftTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Baixa Efetiva Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da baixa efetiva do boleto de pagamento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCodBarrasBaixaEft' type='NumCodBarras' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Código Barras Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Número do código de barras da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CanPgtoBaixaEft' type='CanPgto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Canal Pagamento Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Canal de pagamento baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='MeioPgtoBaixaEft' type='MeioPgto' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Meio Pagamento Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Meio de pagamento da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtHrSitBaixaEft' type='xs:dateTime'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Hora Situação Baixa Efetiva</cat:NomeCampo>
+            <cat:DescricaoCampo>Data e hora de situação da baixa efetiva.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do USRMSG da mensagem -->
+ 
+<xs:simpleType name='USERMSGSimpleType'>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1048576'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<!-- Definicao do tipos simples do evento -->
+ 
+<xs:simpleType name='DomSist'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Domínio de sistema</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='5'/>
+    <xs:maxLength value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdOperad'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador pessoal do operador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='32'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Indr'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador "Sim" ou "Não"</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ISPB'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador da IF e Câmara junto ao Banco Central para o Sistema de Pagamentos Brasileiro.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='8'/>
+    <xs:maxLength value='8'/>
+    <xs:pattern value='[0-9]{8}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeq'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número Seqüencial que indica a ordem das mensagens particionadas.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='9'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NUOp'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número único da operação. Formato: para o Domínio de Sistema SPB02 = XXXXXXXXAAMMDDSSSSSSSSS em que XXXXXXXX - ISPB; AAMMDD - data; SSSSSSSSS - sequencial. Para os demais domínios de sistema = XXXXXXXXAAAAMMDDSSSSSSS em que XXXXXXXX - ISPB ou CNPJ de 8 posições; AAAAMMDD - data; SSSSSSS - sequencial.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='23'/>
+    <xs:maxLength value='23'/>
+    <xs:pattern value='[0-9]{23}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CanPgto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Canal de Pagamento do Bloqueto</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CEP'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código de Endereçamento Postal</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='8'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CidEnd'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Cidade do endereço</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='50'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CNPJ_CPF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Identificação da Pessoa Jurídica no Cadastro Nacional de Pessoa Jurídica ou o Número no Cadastro de Pessoa Física. 2 - No caso de transferência para pessoas isentas de CNPJ ou CPF, o campo CNPJ ou CPF deve ser preenchido com zero.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='14'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodCartTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código para identificar as características dos títulos dentro das modalidades de cobrança existentes no banco. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodDesctTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código para identificação do critério de desconto que deve ser concedido. Base CNAB.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodEspTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da espécie do título. Identifica o tipo de título de cobrança. Base CNAB.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodIF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código IF utilizado na compensação.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='3'/>
+    <xs:maxLength value='3'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodJurosTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código para identificação do tipo de pagamento de juros de mora. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMoedaCNAB'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da moeda no padrão CNAB.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='2'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMsg'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da mensagem do sistema associado ao evento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='7'/>
+    <xs:maxLength value='9'/>
+    <xs:pattern value='[A-Z]{3}[0-9]{4}(E|R1|R2|R3)?'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMultaTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da multa do título. Códigos adotados pela FEBRABAN. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ControleIF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Controle da IF</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='20'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentcSacdrAvalst'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificação do sacador avalista.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='15'/>
+    <xs:pattern value='[0-9]{1,15}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdNossoNum'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Controle do Cedente para identificar o Título - o “Nosso Número”.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='20'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IndrActe'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indica Aceito ou Rejeitado.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='MeioPgto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Meio de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Nom_RzSoc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Nome ou razão social</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='50'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Nome'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Nome</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='80'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumCodBarras'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número referente ao Código de Barra. Para preencher esse  campo, as seguintes posições devem ser observadas: 01-03 - Identificação do Banco; 04 - Código da Moeda ( Real = 9); 05 - Dígito Verificador Geral do Código de Barras;  06-09 - Fator de vencimento; 10-19 (8 inteiros e 2 decimais) Valor do Documento; 20-44 - Campo Livre.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='44'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumDocTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Documento do Título utilizado pelo Cedente.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='15'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumIdentcTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número único de identificação do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='19'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumLinhaDigtvl'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número referente à linha digitável do código de barras do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='47'/>
+    <xs:maxLength value='47'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumNotaFis'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número da Nota Fiscal.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='15'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumRefCad'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de referência gerado a cada atualização do cadastro, único durante todo ciclo de vida do registro.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='19'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeqAtlzCadDDA'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número sequencial que indica a ordem de atualização do cadastro no DDA.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='19'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeqInf'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de seqüencia de informação.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='3'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='QtdDias'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Quantidade de Dias Úteis ou Corridos</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='6'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='QtdParcl'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Quantidade de parcelas </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='3'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='RuaRem'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Rua do imóvel.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='40'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SitBaixaOperac'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Situação da baixa operacional do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SitTerc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Situação do terceiro autorizado do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SitTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Situação do título no sistema.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='2'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='SitTitPgto'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Situação do boleto de pagamento para pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='2'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpAutcRecbtVlrDivgte'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de autorização para recebimento de valor divergente.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpBaixaEft'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de baixa efetiva do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpBaixaOperac'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de baixa operacional do boleto de pagamento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpIdentcSacdrAvalst'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de identificação do sacador avalista.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpModlCalc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de modelo de cálculo.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='2'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpPessoa'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo Pessoa Destinatário.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpPgtoTit'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Tipo de Pagamento do Título.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='TpVlr_Perc'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identifica se valor ou percentual. Na expressão regular: V - Valor; P - Percentual.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+    <xs:pattern value='V|P'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Txt100'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Texto livre de tamanho máximo de 100 caracteres.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='100'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='UF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Sigla da Unidade da Federação</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='2'/>
+    <xs:maxLength value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Valor'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor. Até dezessete inteiros e dois decimais e sinalizado. Para valores menores que zero, o valor será precedido pelo sinal "-". Exemplo: para 20 negativo informe -20 . Deve ser informado o ponto separador caso tenha  decimais. Exemplo: para R$100,00 informe 100; para R$100,10 informe 100.1; para R$100,11 informe 100.11; para R$100,11 negativo informe -100.11</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='19'/>
+    <xs:fractionDigits value='2'/>
+    <xs:minExclusive value='-100000000000000000'/>
+    <xs:maxExclusive value='100000000000000000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Vlr_PercDDA'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor ou Percentual, com ponto flutuante. Para conteúdo que expresse um percentual, o limite de casas decimais é 5. Para conteúdo que expresse valores em moeda Real, deve ser informado somente até a segunda casa decimal. Para conteúdo que expresse quantidade de moeda estrangeira, taxas ou Índices, pode ser informados até 5 casas decimais.Para valores menores que zero, o valor será precedido pelo sinal "-".  Exemplo: para 20 negativo informe -20 . Deve ser informado o ponto separador caso tenha  decimais. </cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='17'/>
+    <xs:fractionDigits value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+</xs:schema>

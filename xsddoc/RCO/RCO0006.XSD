@@ -1,0 +1,632 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    xmlns:cat='http://www.bcb.gov.br/catalogomsg'
+    targetNamespace='http://www.bcb.gov.br/SPB/RCO0006.xsd'
+    xmlns='http://www.bcb.gov.br/SPB/RCO0006.xsd'
+    elementFormDefault='qualified'
+    version='5.04'>
+ 
+<!-- Definicao da mensagem -->
+ 
+<xs:element name='DOC' type='DOCComplexType'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfEvento>
+        <cat:Evento>RCO0006 - IF consulta Cumprimento compulsório</cat:Evento>
+        <cat:Descricao>Destinado à IF consultar o cumprimento da exigibilidade de um compulsório no período de movimentação que contém a data de referência.</cat:Descricao>
+        <cat:Servico>Controle de Cumprimento da Exigibilidade</cat:Servico>
+        <cat:TipoFluxo>Fluxo4</cat:TipoFluxo>
+      </cat:InfEvento>
+    </xs:documentation>
+  </xs:annotation>
+</xs:element>
+ 
+<xs:complexType name='DOCComplexType'>
+  <xs:sequence>
+    <xs:element name='BCMSG' type='BCMSGComplexType'/>
+    <xs:element name='SISMSG' type='SISMSGComplexType'/>
+    <xs:element name='USERMSG' type='USERMSGSimpleType' minOccurs='0'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do BCMSG da mensagem -->
+ 
+<xs:complexType name='BCMSGComplexType'>
+  <xs:sequence>
+    <xs:element name='IdentdEmissor' type='ISPB'/>
+    <xs:element name='IdentdDestinatario' type='ISPB'/>
+    <xs:element name='IdentdContg' type='ISPB' minOccurs='0'/>
+    <xs:element name='IdentdOperad' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='IdentdOperadConfc' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='Grupo_Seq' type='Grupo_SeqComplexType' minOccurs='0'/>
+    <xs:element name='DomSist' type='DomSist'/>
+    <xs:element name='NUOp' type='NUOp'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_SeqComplexType'>
+  <xs:sequence>
+    <xs:element name='NumSeq' type='NumSeq'/>
+    <xs:element name='IndrCont' type='Indr'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do SISMSG da mensagem -->
+ 
+<xs:complexType name='SISMSGComplexType'>
+  <xs:choice>
+    <xs:element name='RCO0006' type='RCO0006ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Consulta Cumprimento Compulsório</cat:Mensagem>
+            <cat:Emissor>IF</cat:Emissor>
+            <cat:Destinatario>RCO</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='RCO0006R1' type='RCO0006R1ComplexType'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfMensagem>
+            <cat:Mensagem>Resposta à Consulta Cumprimento Compulsório</cat:Mensagem>
+            <cat:Emissor>RCO</cat:Emissor>
+            <cat:Destinatario>IF</cat:Destinatario>
+          </cat:InfMensagem>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:choice>
+</xs:complexType>
+ 
+<xs:complexType name='RCO0006ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='RCO0006'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlIF' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controleda IF</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBIF' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodRCO' type='CodRCO'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código RCO</cat:NomeCampo>
+            <cat:DescricaoCampo>Código de identificação de Recolhimento do Compulsório.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodMod' type='CodMod' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Modalidade</cat:NomeCampo>
+            <cat:DescricaoCampo>Sigla da modalidade de compulsório</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtRef' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Referência</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de Referência da informação/consulta.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='RCO0006R1ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='CodMsg' fixed='RCO0006R1'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Mensagem</cat:NomeCampo>
+            <cat:DescricaoCampo>Código da mensagem do sistema associado ao evento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='NumCtrlIF' type='ControleIF'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Número Controle IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de controleda IF</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='ISPBIF' type='ISPB'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>ISPB IF</cat:NomeCampo>
+            <cat:DescricaoCampo>Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodRCO' type='CodRCO'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código RCO</cat:NomeCampo>
+            <cat:DescricaoCampo>Código de identificação de Recolhimento do Compulsório.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='CodMod' type='CodMod' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Código Modalidade</cat:NomeCampo>
+            <cat:DescricaoCampo>Sigla da modalidade de compulsório</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='Grupo_RCO0006R1_Cump' type='Grupo_RCO0006R1_CumpComplexType' minOccurs='0' maxOccurs='200'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Grupo Cumprimento</cat:NomeCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIniPerCalc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Início Período Cálculo</cat:NomeCampo>
+            <cat:DescricaoCampo>Data início do período de cálculo da tabela de períodos.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtFimPerCalc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Fim Período Cálculo</cat:NomeCampo>
+            <cat:DescricaoCampo>Data final do período de cálculo da tabela de períodos.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtIniPerMovtc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Início Período Movimentação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data início do período de movimentação da tabela de períodos.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtFimPerMovtc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Fim Período Movimentação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data final do período de movimentação da tabela de períodos.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrMedCx' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Média Caixa</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da média caixa.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDeducCump' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Dedução Cumprimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor de dedução do cumprimento da exigibilidade de recolhimento compulsório.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExiglddTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Exigibilidade Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da exigibilidade em título.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExiglddEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Exigibilidade Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da exigibilidade em espécie.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDefPerEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Deficiência Período Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor deficiência período espécie</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDefPerTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Deficiência Período Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor deficiência período título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExcPerEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Excesso Período Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor excesso período espécie</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExcPerTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Excesso Período Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor excesso período título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrCstPer' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Custo Período</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do custo do período.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='DtMovto' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimento</cat:NomeCampo>
+            <cat:DescricaoCampo>Data de movimento.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_RCO0006R1_CumpComplexType'>
+  <xs:sequence>
+    <xs:element name='DtMovtc' type='xs:date'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Data Movimentação</cat:NomeCampo>
+            <cat:DescricaoCampo>Data da movimentação.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDefDiariaEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Deficiência Diária Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor deficiência diária espécie</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDefDiariaTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Deficiência Diária Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor deficiência diária título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrCstDiario' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Custo Diário</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do custo diário.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrDevCst' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Devolução Custos</cat:NomeCampo>
+            <cat:DescricaoCampo>Indica as devoluções ocorridas naquele dia, independentemente de serem realtivas a custos diários ou por deficência no período, no caso do recolhimento compulsório e do encaixe obrigatório sobre recursos à vista</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExcDiarioEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Excesso Diário Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor excesso diário espécie</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrExcDiarioTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Excesso Diário Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor excesso diário título</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrSldRecolhdEsp' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Saldo Recolhido Espécie</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do saldo recolhido em espécie.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrSldRecolhdTit' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Saldo Recolhido Título</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor do saldo recolhido em título.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    <xs:element name='VlrRemun' type='Valor' minOccurs='0'>
+      <xs:annotation>
+        <xs:documentation>
+          <cat:InfCampo>
+            <cat:NomeCampo>Valor Remuneração</cat:NomeCampo>
+            <cat:DescricaoCampo>Valor da atualizacao do saldo recolhido.</cat:DescricaoCampo>
+          </cat:InfCampo>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:element>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do USRMSG da mensagem -->
+ 
+<xs:simpleType name='USERMSGSimpleType'>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1048576'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<!-- Definicao do tipos simples do evento -->
+ 
+<xs:simpleType name='DomSist'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Domínio de sistema</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='5'/>
+    <xs:maxLength value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdOperad'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador pessoal do operador.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='32'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Indr'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Indicador "Sim" ou "Não"</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ISPB'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Identificador da IF e Câmara junto ao Banco Central para o Sistema de Pagamentos Brasileiro.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='8'/>
+    <xs:maxLength value='8'/>
+    <xs:pattern value='[0-9]{8}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeq'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número Seqüencial que indica a ordem das mensagens particionadas.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='9'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NUOp'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número único da operação. Formato: para o Domínio de Sistema SPB02 = XXXXXXXXAAMMDDSSSSSSSSS em que XXXXXXXX - ISPB; AAMMDD - data; SSSSSSSSS - sequencial. Para os demais domínios de sistema = XXXXXXXXAAAAMMDDSSSSSSS em que XXXXXXXX - ISPB ou CNPJ de 8 posições; AAAAMMDD - data; SSSSSSS - sequencial.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='23'/>
+    <xs:maxLength value='23'/>
+    <xs:pattern value='[0-9]{23}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMod'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Sigla da modalidade de compulsório.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodMsg'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código da mensagem do sistema associado ao evento.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='7'/>
+    <xs:maxLength value='9'/>
+    <xs:pattern value='[A-Z]{3}[0-9]{4}(E|R1|R2|R3)?'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodRCO'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Código de Identificação de Recolhimento do Compulsório.</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='2'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ControleIF'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Número de Controle da IF</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='20'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Valor'>
+  <xs:annotation>
+    <xs:documentation>
+      <cat:InfTipo>
+        <cat:DescricaoTipo>Valor. Até dezessete inteiros e dois decimais e sinalizado. Para valores menores que zero, o valor será precedido pelo sinal "-". Exemplo: para 20 negativo informe -20 . Deve ser informado o ponto separador caso tenha  decimais. Exemplo: para R$100,00 informe 100; para R$100,10 informe 100.1; para R$100,11 informe 100.11; para R$100,11 negativo informe -100.11</cat:DescricaoTipo>
+      </cat:InfTipo>
+    </xs:documentation>
+  </xs:annotation>
+  <xs:restriction base='xs:decimal'>
+    <xs:totalDigits value='19'/>
+    <xs:fractionDigits value='2'/>
+    <xs:minExclusive value='-100000000000000000'/>
+    <xs:maxExclusive value='100000000000000000'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+</xs:schema>

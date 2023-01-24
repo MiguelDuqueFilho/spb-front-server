@@ -19,6 +19,14 @@ export class PrismaFileEntityRepository {
     });
   }
 
+  async findAll(): Promise<FileEntity[] | null> {
+    return await this.prisma.fileEntity.findMany({
+      orderBy: {
+        key: 'asc',
+      },
+    });
+  }
+
   async findById(fileEntityId: number): Promise<FileEntity | null> {
     const fileEntity = await this.prisma.fileEntity.findUnique({
       where: {

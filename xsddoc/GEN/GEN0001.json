@@ -1,0 +1,1194 @@
+{
+  "elements": [
+    {
+      "type": "element",
+      "name": "schema",
+      "attributes": { "xmlns": "http://www.bcb.gov.br/GEN/GEN0001.xsd" },
+      "elements": [
+        {
+          "type": "element",
+          "name": "element",
+          "attributes": { "name": "DOC", "type": "DOCComplexType", "childRef": "complexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfEvento",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "Evento",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "GEN0001 - IF requisita Teste de conectividade - ECO"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "Descricao",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "Destinado a testes de conectividade entre os participantes do sistema de mensageria."
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "Observacao",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "1 - Este serviço deve estar implementado por todos os participantes.\r\n2 - Os campos ISPB Emissor e ISPB Destinatário deverão ser prenchidos conforme a definição de Emissor e Destinário da mensagem."
+                            }
+                          ]
+                        },
+                        {
+                          "type": "element",
+                          "name": "Servico",
+                          "elements": [{ "type": "text", "text": "Conexão" }]
+                        },
+                        {
+                          "type": "element",
+                          "name": "TipoFluxo",
+                          "elements": [{ "type": "text", "text": "Fluxo1" }]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "DOCComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "BCMSG",
+                    "type": "BCMSGComplexType",
+                    "description": "Segmento de Controle",
+                    "tagRef": "BCMSG",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "SISMSG",
+                    "type": "SISMSGComplexType",
+                    "description": "Segmento do Sistema",
+                    "tagRef": "SISMSG",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "USERMSG",
+                    "type": "USERMSGSimpleType",
+                    "minOccurs": 0,
+                    "description": "Segmento de Usuário",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "BCMSGComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdEmissor",
+                    "type": "ISPB",
+                    "NomeCampo": "Identificador Emissor",
+                    "DescricaoCampo": "Número de Identificação do emissor junto ao Bacen para o Sistema de pagamentos Brasileiro.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdDestinatario",
+                    "type": "ISPB",
+                    "NomeCampo": "Identificador Destinatário",
+                    "DescricaoCampo": "Número de identificação do destinatário junto ao BACEN para o Sistema de Pagamentos Brasileiro.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdContg",
+                    "type": "ISPB",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Contingência",
+                    "DescricaoCampo": "Número de identificação do participante em contingência.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdOperad",
+                    "type": "IdentdOperad",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Operador",
+                    "DescricaoCampo": "Identificador pessoal do operador.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdOperadConfc",
+                    "type": "IdentdOperad",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Operador Confirmação",
+                    "DescricaoCampo": "Identificador pessoal do operador da confirmação.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "Grupo_Seq",
+                    "type": "Grupo_SeqComplexType",
+                    "minOccurs": 0,
+                    "NomeCampo": "Grupo Sequencia",
+                    "tagRef": "Group",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "DomSist",
+                    "type": "DomSist",
+                    "NomeCampo": "Domínio Sistema",
+                    "DescricaoCampo": "Domínio de sistema.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "NUOp",
+                    "type": "NUOp",
+                    "NomeCampo": "Número_Único Operação",
+                    "DescricaoCampo": "Número único da operação",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "Grupo_SeqComplexType", "tagRef": "Group" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "NumSeq",
+                    "type": "NumSeq",
+                    "NomeCampo": "Número Sequência",
+                    "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IndrCont",
+                    "type": "Indr",
+                    "NomeCampo": "Indicador Continuação",
+                    "DescricaoCampo": "Indicador de continuação",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "SISMSGComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "choice",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "GEN0001",
+                    "type": "GEN0001ComplexType",
+                    "childRef": "complexType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfMensagem",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "Mensagem",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Requisição de Teste de conectividade - ECO"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "Emissor",
+                                  "elements": [{ "type": "text", "text": "Participante-A" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "Destinatario",
+                                  "elements": [{ "type": "text", "text": "Participante-B" }]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "GEN0001R1",
+                    "type": "GEN0001R1ComplexType",
+                    "childRef": "complexType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfMensagem",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "Mensagem",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Resposta ao Requisitante de Teste de conectividade - ECO"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "Emissor",
+                                  "elements": [{ "type": "text", "text": "Participante-B" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "Destinatario",
+                                  "elements": [{ "type": "text", "text": "Participante-A" }]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "GEN0001ComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "CodMsg",
+                    "type": "CodMsg",
+                    "fixed": "GEN0001",
+                    "childRef": "simpleType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "Código Mensagem" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Código da mensagem do sistema associado ao evento."
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": { "name": "ISPBEmissor", "type": "ISPB", "childRef": "simpleType" },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "ISPB Emissor" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "ISPBDestinatario",
+                    "type": "ISPB",
+                    "childRef": "simpleType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "ISPB Destinatário" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": { "name": "MsgECO", "type": "MsgECO", "childRef": "simpleType" },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "Mensagem ECO" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    { "type": "text", "text": "Texto livre para teste de ECO." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "GEN0001R1ComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "CodMsg",
+                    "type": "CodMsg",
+                    "fixed": "GEN0001R1",
+                    "childRef": "simpleType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "Código Mensagem" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Código da mensagem do sistema associado ao evento."
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": { "name": "ISPBEmissor", "type": "ISPB", "childRef": "simpleType" },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "ISPB Emissor" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "ISPBDestinatario",
+                    "type": "ISPB",
+                    "childRef": "simpleType"
+                  },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "ISPB Destinatário" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    {
+                                      "type": "text",
+                                      "text": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": { "name": "MsgECO", "type": "MsgECO", "childRef": "simpleType" },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "annotation",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "documentation",
+                          "elements": [
+                            {
+                              "type": "element",
+                              "name": "InfCampo",
+                              "elements": [
+                                {
+                                  "type": "element",
+                                  "name": "NomeCampo",
+                                  "elements": [{ "type": "text", "text": "Mensagem ECO" }]
+                                },
+                                {
+                                  "type": "element",
+                                  "name": "DescricaoCampo",
+                                  "elements": [
+                                    { "type": "text", "text": "Texto livre para teste de ECO." }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "USERMSGSimpleType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 1048576 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "DomSist",
+            "NomeCampo": "Domínio Sistema",
+            "DescricaoCampo": "Domínio de sistema."
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [{ "type": "text", "text": "Domínio de sistema" }]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 5 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 5 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "IdentdOperad",
+            "NomeCampo": "Identificador Operador",
+            "DescricaoCampo": "Identificador pessoal do operador."
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [
+                            { "type": "text", "text": "Identificador pessoal do operador." }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 32 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "Indr" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [{ "type": "text", "text": "Indicador \"Sim\" ou \"Não\"" }]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 1 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 1 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "ISPB" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "Identificador da IF e Câmara junto ao Banco Central para o Sistema de Pagamentos Brasileiro."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "pattern",
+                  "attributes": { "value": "[0-9]{8}" },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "NumSeq",
+            "NomeCampo": "Número Sequência",
+            "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas"
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "Número Seqüencial que indica a ordem das mensagens particionadas."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:integer", "tagRef": "InputXsInteger" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "totalDigits",
+                  "attributes": { "value": 9 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "NUOp",
+            "NomeCampo": "Número_Único Operação",
+            "DescricaoCampo": "Número único da operação"
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "Número único da operação. Formato: para o Domínio de Sistema SPB02 = XXXXXXXXAAMMDDSSSSSSSSS em que XXXXXXXX - ISPB; AAMMDD - data; SSSSSSSSS - sequencial. Para os demais domínios de sistema = XXXXXXXXAAAAMMDDSSSSSSS em que XXXXXXXX - ISPB ou CNPJ de 8 posições; AAAAMMDD - data; SSSSSSS - sequencial."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 23 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 23 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "pattern",
+                  "attributes": { "value": "[0-9]{23}" },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "CodMsg" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [
+                            {
+                              "type": "text",
+                              "text": "Código da mensagem do sistema associado ao evento."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 7 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 9 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "pattern",
+                  "attributes": { "value": "[A-Z]{3}[0-9]{4}(E|R1|R2|R3)?" },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "MsgECO" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "annotation",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "documentation",
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "InfTipo",
+                      "elements": [
+                        {
+                          "type": "element",
+                          "name": "DescricaoTipo",
+                          "elements": [{ "type": "text", "text": "Texto livre para teste de ECO" }]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 50 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

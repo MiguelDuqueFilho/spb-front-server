@@ -1,0 +1,315 @@
+{
+  "elements": {
+    "schema": {
+      "xmlns": "http://www.bcb.gov.br/GEN/GEN0001.xsd",
+      "element": {
+        "name": "DOC",
+        "type": "DOCComplexType",
+        "childRef": "complexType",
+        "Evento": "GEN0001 - IF requisita Teste de conectividade - ECO",
+        "Descricao": "Destinado a testes de conectividade entre os participantes do sistema de mensageria.",
+        "Observacao": "1 - Este serviço deve estar implementado por todos os participantes.\r\n2 - Os campos ISPB Emissor e ISPB Destinatário deverão ser prenchidos conforme a definição de Emissor e Destinário da mensagem.",
+        "Servico": "Conexão",
+        "TipoFluxo": "Fluxo1",
+        "tagRef": "DOC",
+        "InfRegra": []
+      },
+      "complexType": [
+        {
+          "name": "DOCComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "BCMSG",
+                "type": "BCMSGComplexType",
+                "description": "Segmento de Controle",
+                "tagRef": "BCMSG",
+                "childRef": "complexType"
+              },
+              {
+                "name": "SISMSG",
+                "type": "SISMSGComplexType",
+                "description": "Segmento do Sistema",
+                "tagRef": "SISMSG",
+                "childRef": "complexType"
+              },
+              {
+                "name": "USERMSG",
+                "type": "USERMSGSimpleType",
+                "minOccurs": 0,
+                "description": "Segmento de Usuário",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "BCMSGComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "IdentdEmissor",
+                "type": "ISPB",
+                "NomeCampo": "Identificador Emissor",
+                "DescricaoCampo": "Número de Identificação do emissor junto ao Bacen para o Sistema de pagamentos Brasileiro.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdDestinatario",
+                "type": "ISPB",
+                "NomeCampo": "Identificador Destinatário",
+                "DescricaoCampo": "Número de identificação do destinatário junto ao BACEN para o Sistema de Pagamentos Brasileiro.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdContg",
+                "type": "ISPB",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Contingência",
+                "DescricaoCampo": "Número de identificação do participante em contingência.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdOperad",
+                "type": "IdentdOperad",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Operador",
+                "DescricaoCampo": "Identificador pessoal do operador.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdOperadConfc",
+                "type": "IdentdOperad",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Operador Confirmação",
+                "DescricaoCampo": "Identificador pessoal do operador da confirmação.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "Grupo_Seq",
+                "type": "Grupo_SeqComplexType",
+                "minOccurs": 0,
+                "NomeCampo": "Grupo Sequencia",
+                "tagRef": "Group",
+                "childRef": "complexType"
+              },
+              {
+                "name": "DomSist",
+                "type": "DomSist",
+                "NomeCampo": "Domínio Sistema",
+                "DescricaoCampo": "Domínio de sistema.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "NUOp",
+                "type": "NUOp",
+                "NomeCampo": "Número_Único Operação",
+                "DescricaoCampo": "Número único da operação",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Grupo_SeqComplexType",
+          "tagRef": "Group",
+          "sequence": {
+            "element": [
+              {
+                "name": "NumSeq",
+                "type": "NumSeq",
+                "NomeCampo": "Número Sequência",
+                "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IndrCont",
+                "type": "Indr",
+                "NomeCampo": "Indicador Continuação",
+                "DescricaoCampo": "Indicador de continuação",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "SISMSGComplexType",
+          "choice": {
+            "element": [
+              {
+                "name": "GEN0001",
+                "type": "GEN0001ComplexType",
+                "childRef": "complexType",
+                "Mensagem": "Requisição de Teste de conectividade - ECO",
+                "Emissor": "Participante-A",
+                "Destinatario": "Participante-B",
+                "tagRef": "Message"
+              },
+              {
+                "name": "GEN0001R1",
+                "type": "GEN0001R1ComplexType",
+                "childRef": "complexType",
+                "Mensagem": "Resposta ao Requisitante de Teste de conectividade - ECO",
+                "Emissor": "Participante-B",
+                "Destinatario": "Participante-A",
+                "tagRef": "Message"
+              }
+            ]
+          }
+        },
+        {
+          "name": "GEN0001ComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "CodMsg",
+                "type": "CodMsg",
+                "fixed": "GEN0001",
+                "childRef": "simpleType",
+                "NomeCampo": "Código Mensagem",
+                "DescricaoCampo": "Código da mensagem do sistema associado ao evento."
+              },
+              {
+                "name": "ISPBEmissor",
+                "type": "ISPB",
+                "childRef": "simpleType",
+                "NomeCampo": "ISPB Emissor",
+                "DescricaoCampo": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+              },
+              {
+                "name": "ISPBDestinatario",
+                "type": "ISPB",
+                "childRef": "simpleType",
+                "NomeCampo": "ISPB Destinatário",
+                "DescricaoCampo": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+              },
+              {
+                "name": "MsgECO",
+                "type": "MsgECO",
+                "childRef": "simpleType",
+                "NomeCampo": "Mensagem ECO",
+                "DescricaoCampo": "Texto livre para teste de ECO."
+              }
+            ]
+          }
+        },
+        {
+          "name": "GEN0001R1ComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "CodMsg",
+                "type": "CodMsg",
+                "fixed": "GEN0001R1",
+                "childRef": "simpleType",
+                "NomeCampo": "Código Mensagem",
+                "DescricaoCampo": "Código da mensagem do sistema associado ao evento."
+              },
+              {
+                "name": "ISPBEmissor",
+                "type": "ISPB",
+                "childRef": "simpleType",
+                "NomeCampo": "ISPB Emissor",
+                "DescricaoCampo": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+              },
+              {
+                "name": "ISPBDestinatario",
+                "type": "ISPB",
+                "childRef": "simpleType",
+                "NomeCampo": "ISPB Destinatário",
+                "DescricaoCampo": "Número de identificação da Instituição Financeira no Sistema de Pagamentos  Brasileiro"
+              },
+              {
+                "name": "MsgECO",
+                "type": "MsgECO",
+                "childRef": "simpleType",
+                "NomeCampo": "Mensagem ECO",
+                "DescricaoCampo": "Texto livre para teste de ECO."
+              }
+            ]
+          }
+        }
+      ],
+      "simpleType": [
+        {
+          "name": "USERMSGSimpleType",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "maxLength": 1048576
+        },
+        {
+          "name": "DomSist",
+          "NomeCampo": "Domínio Sistema",
+          "DescricaoCampo": "Domínio de sistema.",
+          "DescricaoTipo": "Domínio de sistema",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 5,
+          "maxLength": 5
+        },
+        {
+          "name": "IdentdOperad",
+          "NomeCampo": "Identificador Operador",
+          "DescricaoCampo": "Identificador pessoal do operador.",
+          "DescricaoTipo": "Identificador pessoal do operador.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "maxLength": 32
+        },
+        {
+          "name": "Indr",
+          "DescricaoTipo": "Indicador \"Sim\" ou \"Não\"",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        {
+          "name": "ISPB",
+          "DescricaoTipo": "Identificador da IF e Câmara junto ao Banco Central para o Sistema de Pagamentos Brasileiro.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 8,
+          "maxLength": 8,
+          "pattern": "[0-9]{8}"
+        },
+        {
+          "name": "NumSeq",
+          "NomeCampo": "Número Sequência",
+          "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+          "DescricaoTipo": "Número Seqüencial que indica a ordem das mensagens particionadas.",
+          "base": "xs:integer",
+          "tagRef": "InputXsInteger",
+          "totalDigits": 9
+        },
+        {
+          "name": "NUOp",
+          "NomeCampo": "Número_Único Operação",
+          "DescricaoCampo": "Número único da operação",
+          "DescricaoTipo": "Número único da operação. Formato: para o Domínio de Sistema SPB02 = XXXXXXXXAAMMDDSSSSSSSSS em que XXXXXXXX - ISPB; AAMMDD - data; SSSSSSSSS - sequencial. Para os demais domínios de sistema = XXXXXXXXAAAAMMDDSSSSSSS em que XXXXXXXX - ISPB ou CNPJ de 8 posições; AAAAMMDD - data; SSSSSSS - sequencial.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 23,
+          "maxLength": 23,
+          "pattern": "[0-9]{23}"
+        },
+        {
+          "name": "CodMsg",
+          "DescricaoTipo": "Código da mensagem do sistema associado ao evento.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 7,
+          "maxLength": 9,
+          "pattern": "[A-Z]{3}[0-9]{4}(E|R1|R2|R3)?"
+        },
+        {
+          "name": "MsgECO",
+          "DescricaoTipo": "Texto livre para teste de ECO",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "maxLength": 50
+        }
+      ]
+    }
+  }
+}

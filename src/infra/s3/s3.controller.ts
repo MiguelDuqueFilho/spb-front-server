@@ -7,6 +7,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import path from 'node:path';
 import { S3Service } from './s3.service';
 
@@ -21,6 +22,7 @@ const pngFileFilter = (req: any, file: any, callback) => {
 
 // @UseGuards(JwtGuard)
 @Controller('s3')
+@ApiTags('s3')
 export class S3Controller {
   constructor(private readonly s3Service: S3Service) {}
 
@@ -39,7 +41,7 @@ export class S3Controller {
 
   @Get('get/catalog/:key')
   async getCatalog(@Param('key') key: string) {
-    const file = await this.s3Service.getS3File(key);
+    const file = await this.s3Service.getS3FileCatalog(key);
 
     delete file.Body;
     delete file.Metadata;
@@ -48,6 +50,6 @@ export class S3Controller {
 
   @Get('delete/catalog/:key')
   async deleteCatalog(@Param('key') key: string) {
-    return await this.s3Service.deleteS3File(key);
+    return await this.s3Service.deleteS3FileCatalog(key);
   }
 }

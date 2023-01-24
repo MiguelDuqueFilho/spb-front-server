@@ -39,7 +39,7 @@ export class S3Service {
     return upLoadS3Files;
   }
 
-  public async getS3File(
+  public async getS3FileCatalog(
     key: string,
   ): Promise<PromiseResult<AWS.S3.GetObjectOutput, AWS.AWSError>> {
     const params = {
@@ -52,7 +52,7 @@ export class S3Service {
     return file;
   }
 
-  public async deleteS3File(key: string) {
+  public async deleteS3FileCatalog(key: string) {
     const params = {
       Bucket: this.config.get('AWS_BUCKET_NAME'),
       Key: key,

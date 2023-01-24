@@ -4,133 +4,6 @@ import pdfParse from 'pdf-parse';
 
 import { Evento, GrupoServico, Mensagem } from '@prisma/client';
 
-/**
- * * seleciona no pdf o Grupo de Serviço
- */
-const regexGrupoServico = /(Grupo de Serviços) ([A-Z]{3}) (?!.)+/g;
-
-/**
- * * seleciona no pdf o O Domínio do Sistema
- */
-// const regexDominio =
-//   /(Este grupo de serviços pertence ao domínio de sistema) ([A-Z0-9]*)/g;
-
-/**
- * * seleciona Evento
- */
-const regexEvento = /Evento ([A-Z]{3}[0-9]{4})( - )([A-za-z0-9\S ]+)/;
-
-/**
- * * seleciona descrição da mensagem
- */
-const regexMensagem = /(?<!Código )(Mensagem: )([A-za-z0-9\S ]+)/g;
-
-/**
- * * seleciona Código da mensagem
- */
-const regexCodigoMensagem =
-  /(Código Mensagem: )([A-Z]{3}[0-9]{4}E{0,1}R{0,1}[ 123]{0,1})( Emissor:)([ A-Za-z0-9á_çãõâ\S]+)([ +]{0,})(Destinatário:)([ A-Za-z0-9á_çãõâ\S]+)/;
-
-/**
- * * seleciona Fluxo do Evento
- */
-const regexEventoFluxo =
-  /Mensagens Associadas Fluxo do Evento: ([A-za-z0-9\S]+)/g;
-
-let startArqReference = false;
-let lineReference = 0;
-let cadServicos = [] as GrupoServico[];
-let cadEventos = [] as Evento[];
-let cadMensagens = [] as Mensagem[];
-
-let cadServico = {} as GrupoServico;
-let cadEvento = {} as Evento;
-let cadMensagem = {} as Mensagem;
-
-async function ProcessCatalog(line: string, index: number) {
-  /**
-   * *  get group service
-   */
-  if (line.match(regexGrupoServico)) {
-    const parseText = <string[]>regexGrupoServico.exec(line);
-    const [, , GrpServico] = parseText;
-    cadServico = { GrpServico } as any;
-    lineReference = index + 2;
-    startArqReference = true;
-    return;
-  }
-
-  if (!startArqReference) return;
-
-  /**
-   * *  get Service Descricao
-   */
-  if (lineReference === index) {
-    cadServico = {
-      ...cadServico,
-      Descricao: line,
-    };
-    cadEvento = { GrpServicoId: cadServico.GrpServico } as any;
-    cadServicos = [...cadServicos, cadServico];
-
-    return;
-  }
-
-  /**
-   * * get Evento
-   */
-  if (line.match(regexEvento)) {
-    const parseText = <string[]>regexEvento.exec(line);
-    const [, CodEvento, , NomeEvento] = parseText;
-    cadEvento = {
-      ...cadEvento,
-      CodEvento,
-      NomeEvento,
-    };
-    return;
-  }
-
-  /**
-   * * get Fluxo
-   */
-  if (line.match(regexEventoFluxo)) {
-    const parseText = <string[]>regexEventoFluxo.exec(line);
-    const [, Fluxo] = parseText;
-    cadEvento = { ...cadEvento, Fluxo };
-    cadEventos = [...cadEventos, cadEvento];
-    return;
-  }
-
-  /**
-   * * get Mensagem
-   */
-  if (line.match(regexMensagem)) {
-    const parseText = <string[]>regexMensagem.exec(line);
-    const [, , Descricao] = parseText;
-    cadMensagem = { CodEventoId: cadEvento.CodEvento, Descricao } as any;
-
-    return;
-  }
-
-  /**
-   * * get Cod Mensagem
-   */
-  if (line.match(regexCodigoMensagem)) {
-    const parseText = <string[]>regexCodigoMensagem.exec(line);
-    const [, , CodMsg, , EntidadeOrigem, , , EntidadeDestino] = parseText;
-
-    cadMensagem = {
-      ...cadMensagem,
-      CodMsg,
-      Tag: `<${CodMsg.trim()}>`,
-      EntidadeOrigem: EntidadeOrigem.trim(),
-      EntidadeDestino: EntidadeDestino.trim(),
-    };
-
-    cadMensagens = [...cadMensagens, cadMensagem];
-  }
-}
-
 export interface CatalogGenerateResult {
   info: string;
   author: string;
@@ -143,6 +16,42 @@ export interface CatalogGenerateResult {
 @Injectable()
 export class CatalogGenerate {
   logger = new Logger(CatalogGenerate.name);
+
+  /**
+   * * seleciona no pdf o Grupo de Serviço
+   */
+  regexGrupoServico = /(Grupo de Serviços) ([A-Z]{3}) (?!.)+/g;
+
+  /**
+   * * seleciona Evento
+   */
+  regexEvento = /Evento ([A-Z]{3}[0-9]{4})( - )([A-za-z0-9\S ]+)/;
+
+  /**
+   * * seleciona descrição da mensagem
+   */
+  regexMensagem = /(?<!Código )(Mensagem: )([A-za-z0-9\S ]+)/g;
+
+  /**
+   * * seleciona Código da mensagem
+   */
+  regexCodigoMensagem =
+    /(Código Mensagem: )([A-Z]{3}[0-9]{4}E{0,1}R{0,1}[ 123]{0,1})( Emissor:)([ A-Za-z0-9á_çãõâ\S]+)([ +]{0,})(Destinatário:)([ A-Za-z0-9á_çãõâ\S]+)/;
+
+  /**
+   * * seleciona Fluxo do Evento
+   */
+  regexEventoFluxo = /Mensagens Associadas Fluxo do Evento: ([A-za-z0-9\S]+)/g;
+
+  startArqReference = false;
+  lineReference = 0;
+  cadServicos = [] as GrupoServico[];
+  cadEventos = [] as Evento[];
+  cadMensagens = [] as Mensagem[];
+
+  cadServico = {} as GrupoServico;
+  cadEvento = {} as Evento;
+  cadMensagem = {} as Mensagem;
 
   public async execute(
     key: string,
@@ -163,16 +72,103 @@ export class CatalogGenerate {
        */
       if (line.trim() === '') return;
 
-      await ProcessCatalog(line, index);
+      await this.ProcessCatalog(line, index);
     });
 
     return {
       info: data.info.Title,
       author: data.info.Author,
       pages: data.numpages,
-      cadServicos,
-      cadEventos,
-      cadMensagens,
+      cadServicos: this.cadServicos,
+      cadEventos: this.cadEventos,
+      cadMensagens: this.cadMensagens,
     };
+  }
+
+  private async ProcessCatalog(line: string, index: number) {
+    /**
+     * *  get group service
+     */
+    if (line.match(this.regexGrupoServico)) {
+      const parseText = <string[]>this.regexGrupoServico.exec(line);
+      const [, , GrpServico] = parseText;
+      this.cadServico = { GrpServico } as any;
+      this.lineReference = index + 2;
+      this.startArqReference = true;
+      return;
+    }
+
+    if (!this.startArqReference) return;
+
+    /**
+     * *  get Service Descricao
+     */
+    if (this.lineReference === index) {
+      this.cadServico = {
+        ...this.cadServico,
+        Descricao: line,
+      };
+      this.cadEvento = { GrpServicoId: this.cadServico.GrpServico } as any;
+      this.cadServicos = [...this.cadServicos, this.cadServico];
+
+      return;
+    }
+
+    /**
+     * * get Evento
+     */
+    if (line.match(this.regexEvento)) {
+      const parseText = <string[]>this.regexEvento.exec(line);
+      const [, CodEvento, , NomeEvento] = parseText;
+      this.cadEvento = {
+        ...this.cadEvento,
+        CodEvento,
+        NomeEvento,
+      };
+      return;
+    }
+
+    /**
+     * * get Fluxo
+     */
+    if (line.match(this.regexEventoFluxo)) {
+      const parseText = <string[]>this.regexEventoFluxo.exec(line);
+      const [, Fluxo] = parseText;
+      this.cadEvento = { ...this.cadEvento, Fluxo };
+      this.cadEventos = [...this.cadEventos, this.cadEvento];
+      return;
+    }
+
+    /**
+     * * get Mensagem
+     */
+    if (line.match(this.regexMensagem)) {
+      const parseText = <string[]>this.regexMensagem.exec(line);
+      const [, , Descricao] = parseText;
+      this.cadMensagem = {
+        CodEventoId: this.cadEvento.CodEvento,
+        Descricao,
+      } as any;
+
+      return;
+    }
+
+    /**
+     * * get Cod Mensagem
+     */
+    if (line.match(this.regexCodigoMensagem)) {
+      const parseText = <string[]>this.regexCodigoMensagem.exec(line);
+      const [, , CodMsg, , EntidadeOrigem, , , EntidadeDestino] = parseText;
+
+      this.cadMensagem = {
+        ...this.cadMensagem,
+        CodMsg,
+        Tag: `<${CodMsg.trim()}>`,
+        EntidadeOrigem: EntidadeOrigem.trim(),
+        EntidadeDestino: EntidadeDestino.trim(),
+      };
+
+      this.cadMensagens = [...this.cadMensagens, this.cadMensagem];
+    }
   }
 }

@@ -1,0 +1,236 @@
+{
+  "elements": {
+    "schema": {
+      "xmlns": "http://www.bcb.gov.br/GEN/GEN0001E.xsd",
+      "element": { "name": "DOC", "type": "DOCComplexType", "childRef": "complexType" },
+      "complexType": [
+        {
+          "name": "DOCComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "BCMSG",
+                "type": "BCMSGComplexType",
+                "description": "Segmento de Controle",
+                "tagRef": "BCMSG",
+                "childRef": "complexType"
+              },
+              {
+                "name": "SISMSG",
+                "type": "SISMSGComplexType",
+                "description": "Segmento do Sistema",
+                "tagRef": "SISMSG",
+                "childRef": "complexType"
+              },
+              {
+                "name": "USERMSG",
+                "type": "USERMSGSimpleType",
+                "minOccurs": 0,
+                "description": "Segmento de Usuário",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "BCMSGComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "IdentdEmissor",
+                "type": "ISPB",
+                "NomeCampo": "Identificador Emissor",
+                "DescricaoCampo": "Número de Identificação do emissor junto ao Bacen para o Sistema de pagamentos Brasileiro.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdDestinatario",
+                "type": "ISPB",
+                "NomeCampo": "Identificador Destinatário",
+                "DescricaoCampo": "Número de identificação do destinatário junto ao BACEN para o Sistema de Pagamentos Brasileiro.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdContg",
+                "type": "ISPB",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Contingência",
+                "DescricaoCampo": "Número de identificação do participante em contingência.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdOperad",
+                "type": "IdentdOperad",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Operador",
+                "DescricaoCampo": "Identificador pessoal do operador.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IdentdOperadConfc",
+                "type": "IdentdOperad",
+                "minOccurs": 0,
+                "NomeCampo": "Identificador Operador Confirmação",
+                "DescricaoCampo": "Identificador pessoal do operador da confirmação.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "Grupo_Seq",
+                "type": "Grupo_SeqComplexType",
+                "minOccurs": 0,
+                "NomeCampo": "Grupo Sequencia",
+                "tagRef": "Group",
+                "childRef": "complexType"
+              },
+              {
+                "name": "DomSist",
+                "type": "DomSist",
+                "NomeCampo": "Domínio Sistema",
+                "DescricaoCampo": "Domínio de sistema.",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "NUOp",
+                "type": "NUOp",
+                "NomeCampo": "Número_Único Operação",
+                "DescricaoCampo": "Número único da operação",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Grupo_SeqComplexType",
+          "tagRef": "Group",
+          "sequence": {
+            "element": [
+              {
+                "name": "NumSeq",
+                "type": "NumSeq",
+                "NomeCampo": "Número Sequência",
+                "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+                "childRef": "simpleType"
+              },
+              {
+                "name": "IndrCont",
+                "type": "Indr",
+                "NomeCampo": "Indicador Continuação",
+                "DescricaoCampo": "Indicador de continuação",
+                "childRef": "simpleType"
+              }
+            ]
+          }
+        },
+        {
+          "name": "SISMSGComplexType",
+          "choice": {
+            "element": [
+              { "name": "GEN0001", "type": "GEN0001ComplexType", "childRef": "complexType" }
+            ]
+          }
+        },
+        {
+          "name": "GEN0001ComplexType",
+          "sequence": {
+            "element": [
+              {
+                "name": "CodMsg",
+                "type": "TagErroComplexType",
+                "fixed": "GEN0001E",
+                "childRef": "complexType"
+              },
+              {
+                "name": "ISPBEmissor",
+                "type": "TagErroComplexType",
+                "minOccurs": 0,
+                "childRef": "complexType"
+              },
+              {
+                "name": "ISPBDestinatario",
+                "type": "TagErroComplexType",
+                "minOccurs": 0,
+                "childRef": "complexType"
+              },
+              {
+                "name": "MsgECO",
+                "type": "TagErroComplexType",
+                "minOccurs": 0,
+                "childRef": "complexType"
+              }
+            ]
+          },
+          "attribute": { "name": "CodErro", "type": "CodErro", "childRef": "simpleType" }
+        },
+        {
+          "name": "TagErroComplexType",
+          "attribute": { "name": "CodErro", "type": "CodErro", "childRef": "simpleType" }
+        }
+      ],
+      "simpleType": [
+        {
+          "name": "USERMSGSimpleType",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "maxLength": 1048576
+        },
+        {
+          "name": "DomSist",
+          "NomeCampo": "Domínio Sistema",
+          "DescricaoCampo": "Domínio de sistema.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 5,
+          "maxLength": 5
+        },
+        {
+          "name": "IdentdOperad",
+          "NomeCampo": "Identificador Operador",
+          "DescricaoCampo": "Identificador pessoal do operador.",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "maxLength": 32
+        },
+        {
+          "name": "Indr",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        {
+          "name": "ISPB",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 8,
+          "maxLength": 8,
+          "pattern": "[0-9]{8}"
+        },
+        {
+          "name": "NumSeq",
+          "NomeCampo": "Número Sequência",
+          "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+          "base": "xs:integer",
+          "tagRef": "InputXsInteger",
+          "totalDigits": 9
+        },
+        {
+          "name": "NUOp",
+          "NomeCampo": "Número_Único Operação",
+          "DescricaoCampo": "Número único da operação",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 23,
+          "maxLength": 23,
+          "pattern": "[0-9]{23}"
+        },
+        {
+          "name": "CodErro",
+          "base": "xs:string",
+          "tagRef": "InputXsString",
+          "minLength": 8,
+          "maxLength": 8
+        }
+      ]
+    }
+  }
+}

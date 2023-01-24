@@ -1,0 +1,550 @@
+{
+  "elements": [
+    {
+      "type": "element",
+      "name": "schema",
+      "attributes": { "xmlns": "http://www.bcb.gov.br/GEN/GEN0001E.xsd" },
+      "elements": [
+        {
+          "type": "element",
+          "name": "element",
+          "attributes": { "name": "DOC", "type": "DOCComplexType", "childRef": "complexType" },
+          "elements": []
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "DOCComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "BCMSG",
+                    "type": "BCMSGComplexType",
+                    "description": "Segmento de Controle",
+                    "tagRef": "BCMSG",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "SISMSG",
+                    "type": "SISMSGComplexType",
+                    "description": "Segmento do Sistema",
+                    "tagRef": "SISMSG",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "USERMSG",
+                    "type": "USERMSGSimpleType",
+                    "minOccurs": 0,
+                    "description": "Segmento de Usuário",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "BCMSGComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdEmissor",
+                    "type": "ISPB",
+                    "NomeCampo": "Identificador Emissor",
+                    "DescricaoCampo": "Número de Identificação do emissor junto ao Bacen para o Sistema de pagamentos Brasileiro.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdDestinatario",
+                    "type": "ISPB",
+                    "NomeCampo": "Identificador Destinatário",
+                    "DescricaoCampo": "Número de identificação do destinatário junto ao BACEN para o Sistema de Pagamentos Brasileiro.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdContg",
+                    "type": "ISPB",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Contingência",
+                    "DescricaoCampo": "Número de identificação do participante em contingência.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdOperad",
+                    "type": "IdentdOperad",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Operador",
+                    "DescricaoCampo": "Identificador pessoal do operador.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IdentdOperadConfc",
+                    "type": "IdentdOperad",
+                    "minOccurs": 0,
+                    "NomeCampo": "Identificador Operador Confirmação",
+                    "DescricaoCampo": "Identificador pessoal do operador da confirmação.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "Grupo_Seq",
+                    "type": "Grupo_SeqComplexType",
+                    "minOccurs": 0,
+                    "NomeCampo": "Grupo Sequencia",
+                    "tagRef": "Group",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "DomSist",
+                    "type": "DomSist",
+                    "NomeCampo": "Domínio Sistema",
+                    "DescricaoCampo": "Domínio de sistema.",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "NUOp",
+                    "type": "NUOp",
+                    "NomeCampo": "Número_Único Operação",
+                    "DescricaoCampo": "Número único da operação",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "Grupo_SeqComplexType", "tagRef": "Group" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "NumSeq",
+                    "type": "NumSeq",
+                    "NomeCampo": "Número Sequência",
+                    "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "IndrCont",
+                    "type": "Indr",
+                    "NomeCampo": "Indicador Continuação",
+                    "DescricaoCampo": "Indicador de continuação",
+                    "childRef": "simpleType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "SISMSGComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "choice",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "GEN0001",
+                    "type": "GEN0001ComplexType",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "GEN0001ComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "sequence",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "CodMsg",
+                    "type": "TagErroComplexType",
+                    "fixed": "GEN0001E",
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "ISPBEmissor",
+                    "type": "TagErroComplexType",
+                    "minOccurs": 0,
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "ISPBDestinatario",
+                    "type": "TagErroComplexType",
+                    "minOccurs": 0,
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "element",
+                  "attributes": {
+                    "name": "MsgECO",
+                    "type": "TagErroComplexType",
+                    "minOccurs": 0,
+                    "childRef": "complexType"
+                  },
+                  "elements": []
+                }
+              ]
+            },
+            {
+              "type": "element",
+              "name": "attribute",
+              "attributes": { "name": "CodErro", "type": "CodErro", "childRef": "simpleType" },
+              "elements": []
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "USERMSGSimpleType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 1048576 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "DomSist",
+            "NomeCampo": "Domínio Sistema",
+            "DescricaoCampo": "Domínio de sistema."
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 5 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 5 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "IdentdOperad",
+            "NomeCampo": "Identificador Operador",
+            "DescricaoCampo": "Identificador pessoal do operador."
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 32 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "Indr" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 1 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 1 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "ISPB" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "pattern",
+                  "attributes": { "value": "[0-9]{8}" },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "NumSeq",
+            "NomeCampo": "Número Sequência",
+            "DescricaoCampo": "Número Sequencial que indica a ordem das mensagens particionadas"
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:integer", "tagRef": "InputXsInteger" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "totalDigits",
+                  "attributes": { "value": 9 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": {
+            "name": "NUOp",
+            "NomeCampo": "Número_Único Operação",
+            "DescricaoCampo": "Número único da operação"
+          },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 23 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 23 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "pattern",
+                  "attributes": { "value": "[0-9]{23}" },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "simpleType",
+          "attributes": { "name": "CodErro" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "restriction",
+              "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "minLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                },
+                {
+                  "type": "element",
+                  "name": "maxLength",
+                  "attributes": { "value": 8 },
+                  "elements": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "element",
+          "name": "complexType",
+          "attributes": { "name": "TagErroComplexType" },
+          "elements": [
+            {
+              "type": "element",
+              "name": "simpleContent",
+              "elements": [
+                {
+                  "type": "element",
+                  "name": "extension",
+                  "attributes": { "base": "xs:string", "tagRef": "InputXsString" },
+                  "elements": [
+                    {
+                      "type": "element",
+                      "name": "attribute",
+                      "attributes": {
+                        "name": "CodErro",
+                        "type": "CodErro",
+                        "childRef": "simpleType"
+                      },
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

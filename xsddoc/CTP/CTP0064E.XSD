@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://www.bcb.gov.br/SPB/CTP0064E.xsd'
+    xmlns='http://www.bcb.gov.br/SPB/CTP0064E.xsd'
+    elementFormDefault='qualified'
+    version='5.04'>
+ 
+<!-- Definicao da mensagem -->
+ 
+<xs:element name='DOC' type='DOCComplexType'/>
+ 
+<xs:complexType name='DOCComplexType'>
+  <xs:sequence>
+    <xs:element name='BCMSG' type='BCMSGComplexType'/>
+    <xs:element name='SISMSG' type='SISMSGComplexType'/>
+    <xs:element name='USERMSG' type='USERMSGSimpleType' minOccurs='0'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do BCMSG da mensagem -->
+ 
+<xs:complexType name='BCMSGComplexType'>
+  <xs:sequence>
+    <xs:element name='IdentdEmissor' type='ISPB'/>
+    <xs:element name='IdentdDestinatario' type='ISPB'/>
+    <xs:element name='IdentdContg' type='ISPB' minOccurs='0'/>
+    <xs:element name='IdentdOperad' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='IdentdOperadConfc' type='IdentdOperad' minOccurs='0'/>
+    <xs:element name='Grupo_Seq' type='Grupo_SeqComplexType' minOccurs='0'/>
+    <xs:element name='DomSist' type='DomSist'/>
+    <xs:element name='NUOp' type='NUOp'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<xs:complexType name='Grupo_SeqComplexType'>
+  <xs:sequence>
+    <xs:element name='NumSeq' type='NumSeq'/>
+    <xs:element name='IndrCont' type='Indr'/>
+  </xs:sequence>
+</xs:complexType>
+ 
+<!-- Definicao do SISMSG da mensagem -->
+ 
+<xs:complexType name='SISMSGComplexType'>
+  <xs:choice>
+    <xs:element name='CTP0064' type='CTP0064ComplexType'/>
+  </xs:choice>
+</xs:complexType>
+ 
+<xs:complexType name='CTP0064ComplexType'>
+  <xs:sequence>
+    <xs:element name='CodMsg' type='TagErroComplexType'  fixed='CTP0064E'/>
+    <xs:element name='NumCtrlIF' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='ISPBIF' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='IdentdPartCamr' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='CodArea' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='IdentdCtrapartCamr' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='CodOpCTP' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='SubTpAtv' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='IdentdTitCTP' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='TpCompra_Venda' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='VlrFinanc' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='NumOpPart' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='NumOpCTPOr' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='Hist' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='ModLiquid' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='IdentdBLCamr' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='TpResponsRetenIR' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='TpPessoa' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='CNPJ_CPF' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='QtdCTP' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='DtAquis' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='AlqIR' type='TagErroComplexType'  minOccurs='0'/>
+    <xs:element name='DtMovto' type='TagErroComplexType'  minOccurs='0'/>
+  </xs:sequence>
+  <xs:attribute name='CodErro' type='CodErro'/>
+</xs:complexType>
+ 
+<!-- Definicao do USRMSG da mensagem -->
+ 
+<xs:simpleType name='USERMSGSimpleType'>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='1048576'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<!-- Definicao do tipos simples do evento -->
+ 
+<xs:simpleType name='DomSist'>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='5'/>
+    <xs:maxLength value='5'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='IdentdOperad'>
+  <xs:restriction base='xs:string'>
+    <xs:maxLength value='32'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='Indr'>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='1'/>
+    <xs:maxLength value='1'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='ISPB'>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='8'/>
+    <xs:maxLength value='8'/>
+    <xs:pattern value='[0-9]{8}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NumSeq'>
+  <xs:restriction base='xs:integer'>
+    <xs:totalDigits value='9'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='NUOp'>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='23'/>
+    <xs:maxLength value='23'/>
+    <xs:pattern value='[0-9]{23}'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<xs:simpleType name='CodErro'>
+  <xs:restriction base='xs:string'>
+    <xs:minLength value='8'/>
+    <xs:maxLength value='8'/>
+  </xs:restriction>
+</xs:simpleType>
+ 
+<!-- Definicao do tipo complexo generico de erro com atributo -->
+ 
+<xs:complexType name='TagErroComplexType'>
+  <xs:simpleContent>
+    <xs:extension base='xs:string'>
+      <xs:attribute name='CodErro' type='CodErro'/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+ 
+</xs:schema>
