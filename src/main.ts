@@ -4,11 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  const logger = new Logger(bootstrap.name);
+
   const app = await NestFactory.create(AppModule, {
     logger: ['log', 'error', 'warn'],
   });
-
-  const logger = new Logger(bootstrap.name);
 
   app.setGlobalPrefix('api');
 
@@ -27,7 +27,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/doc', app, document);
 
   const port = process.env.PORT;
 

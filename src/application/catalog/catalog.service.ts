@@ -22,7 +22,7 @@ export class CatalogService {
   public async generate(key: string) {
     this.logger.debug('generate(key: string)');
 
-    const file = await this.s3Service.getS3File(key);
+    const file = await this.s3Service.getS3FileCatalog(key);
 
     const buffer = file.Body as Buffer;
 
@@ -49,7 +49,31 @@ export class CatalogService {
 
   async listAll() {
     this.logger.debug('listAll()');
-
     return await this.prismaFileEntityRepository.findAll();
+  }
+
+  async listService() {
+    this.logger.debug('listService()');
+    return await this.prismaGrupoServicosRepository.listServiceNotUpdated();
+  }
+
+  async listServiceUpdated() {
+    this.logger.debug('listServiceUpdated()');
+    return await this.prismaGrupoServicosRepository.listServiceUpdated();
+  }
+
+  async getEvent(event: string) {
+    this.logger.debug('getEvent(event)');
+    return await this.prismaEventosRepository.getEvent(event);
+  }
+
+  async listEvent(event: string) {
+    this.logger.debug('listEvent(event)');
+    return await this.prismaEventosRepository.list(event);
+  }
+
+  async listEventByService(service: string) {
+    this.logger.debug('listEventByService(event)');
+    return await this.prismaEventosRepository.listByService(service);
   }
 }

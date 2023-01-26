@@ -7,6 +7,7 @@ import { S3Module } from './infra/s3/s3.module';
 import { CatalogModule } from './application/catalog/catalog.module';
 import { SchemaModule } from './application/schema/schema.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { NewMessageModule } from './application/new-message/new-message.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
     S3Module,
     PrismaModule,
     SchemaModule,
+    NewMessageModule,
   ],
 })
 export class AppModule implements NestModule {

@@ -28,7 +28,7 @@ export class PrismaGrupoServicosRepository {
     }
   }
 
-  async listAll() {
+  async listServiceNotUpdated() {
     this.logger.debug(`listAll()`);
     const result = await this.prisma.grupoServico.findMany({
       include: {
@@ -48,8 +48,8 @@ export class PrismaGrupoServicosRepository {
     });
     return result;
   }
-  async listAllConverted() {
-    this.logger.debug(`listAllConverted()`);
+  async listServiceUpdated() {
+    this.logger.debug(`listServicoUpdated()`);
     const result = await this.prisma.grupoServico.findMany({
       include: {
         _count: {

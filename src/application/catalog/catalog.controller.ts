@@ -20,4 +20,29 @@ export class CatalogController {
     this.logger.debug('listAll() ');
     return await this.catalogService.listAll();
   }
+
+  @Get('list/service')
+  async listService() {
+    return await this.catalogService.listService();
+  }
+
+  @Get('list/service/updated')
+  async listServiceUpdated() {
+    return await this.catalogService.listServiceUpdated();
+  }
+
+  @Get('list/event/:event')
+  async listEvent(@Param('event') event: string) {
+    return await this.catalogService.listEvent(event);
+  }
+
+  @Get('get/event/:event')
+  async getEvent(@Param('event') event: string) {
+    return await this.catalogService.getEvent(event);
+  }
+
+  @Get('list/event/service/:service')
+  async listEventoByServico(@Param('service') service: string) {
+    return await this.catalogService.listEventByService(service);
+  }
 }

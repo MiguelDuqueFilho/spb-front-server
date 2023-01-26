@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
-import { GetUser } from '../auth/decorator';
+import { GetUser } from '../decorator';
 import { JwtGuard } from '../auth/guard/jwt.guard';
 import { EditUserDto } from './dto';
 import { UserService } from './user.service';
