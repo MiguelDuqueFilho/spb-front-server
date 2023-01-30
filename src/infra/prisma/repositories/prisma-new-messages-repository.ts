@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { NewMessage } from '@prisma/client';
+import { NewMessage } from '../../../application/new-message/entities/new-message';
+
+import { PrismaNewMessagesMapper } from '../mappers/prisma-new-messages-mapper';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
@@ -8,12 +10,15 @@ export class PrismaNewMessagesRepository {
 
   constructor(private prisma: PrismaService) {}
 
-  async save(newMessage: NewMessage) {
-    this.logger.debug(`save(newMessage: NewMessage`);
+  async save(newMessage: NewMessage): Promise<NewMessage> {
+    this.logger.debug(`save(newMessage: NewMessageEntity`);
+    const raw = PrismaNewMessagesMapper.toPrisma(newMessage);
 
-    const result = await this.prisma.newMessage.create({
-      data: newMessage,
+    const created = await this.prisma.newMessage.create({
+      data: raw,
     });
+
+    const result = PrismaNewMessagesMapper.toDomain(created);
     return result;
   }
 

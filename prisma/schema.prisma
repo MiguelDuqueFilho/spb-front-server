@@ -80,7 +80,7 @@ model NewMessage {
   xmlMessage String   @db.Xml
   process    String   @default("PENDING") // PROCESSING - COMPLETED
   status     String   @default("VALIDATED") // ERROR
-  error      String?
+  error      Json?    @default("[]")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt()
 

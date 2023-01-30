@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Controller, Param, Patch } from '@nestjs/common';
 import { SchemaService } from './schema.service';
 import { CreateSchemaParamDto, UpdateByServiceSchemaParamDto } from './dto';
 
@@ -16,7 +8,6 @@ import {
   ApiResponse,
   ApiBadRequestResponse,
 } from '@nestjs/swagger';
-import { XML } from '../decorator/xml.decorator';
 
 @Controller('schema')
 @ApiTags('schema')
@@ -45,12 +36,6 @@ export class SchemaController {
   @Patch('/update/service/:service')
   async UpdateByService(@Param() dto: UpdateByServiceSchemaParamDto) {
     return await this.schemaService.updateSchemaByService(dto.service);
-  }
-
-  @Post('/validate/:event')
-  @HttpCode(HttpStatus.OK)
-  async validate(@Param('event') event: string, @XML() xmlData: string) {
-    return await this.schemaService.validate(event, xmlData);
   }
 
   // @Get(':id')

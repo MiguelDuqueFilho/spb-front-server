@@ -1,10 +1,10 @@
 // export class NewMessage {
-//   id?: number;
+//   id: number;
 //   codMsg: string;
 //   xmlMessage: string;
 //   process: string;
 //   status: string;
-//   error?: string;
+//   error?: JSON;
 //   createdAt?: Date;
 //   updatedAt?: Date;
 // }

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { SchemaComplete } from './schema.complete';
 import { SchemaCompactJson } from './schema.compact.json';
 import { SchemaTransform } from './schema.transform';
@@ -7,7 +7,6 @@ import { PrismaEventosRepository } from '../../infra/prisma/repositories/prisma-
 import libxmljs from 'libxmljs2';
 import path from 'node:path';
 import fs from 'node:fs';
-import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class SchemaService {
@@ -110,7 +109,7 @@ export class SchemaService {
 
     const validationResult = xmlDoc.validate(xmlSchemaDoc);
 
-    if (validationResult) {
+    if (validationResult === true) {
       let codMsg = event;
       const regex1 = /(<CodMsg>)([A-Z]{3}[0-9]{4}(E|R1|R2|R3)?)(<\/CodMsg>)/;
       const regex2 = /(<CodMsg>)([^]+)(<\/CodMsg>)/;
@@ -121,12 +120,14 @@ export class SchemaService {
       }
 
       return {
+        status: HttpStatus.OK,
         codMsg,
         message: `Event: ${event} Validation Successful`,
       };
     }
 
     return {
+      status: HttpStatus.BAD_REQUEST,
       codMsg: event,
       error: xmlDoc.validationErrors,
     };

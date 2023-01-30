@@ -1,23 +1,34 @@
 import {
   Controller,
-  Get,
   Post,
-  Body,
-  Patch,
   Param,
-  Delete,
+  HttpCode,
+  HttpStatus,
+  Patch,
 } from '@nestjs/common';
 import { NewMessageService } from './new-message.service';
-import { CreateNewMessageDto } from './dto/create-new-message.dto';
+import { XML } from '../decorator';
+import { ApiBadRequestResponse } from '@nestjs/swagger';
 
-@Controller('new-message')
+@Controller('message')
 export class NewMessageController {
   constructor(private readonly newMessageService: NewMessageService) {}
 
-  @Post()
-  create(@Body() createNewMessageDto: CreateNewMessageDto) {
-    // return this.newMessageService.create(createNewMessageDto);
-    console.log(createNewMessageDto);
+  @Post(':event')
+  @HttpCode(HttpStatus.OK)
+  create(@Param('event') event: string, @XML() xmlMessage: string) {
+    return this.newMessageService.createAndSend(event, xmlMessage);
+  }
+
+  @Patch('/validate/:event')
+  @HttpCode(HttpStatus.OK)
+  @ApiBadRequestResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Validate error',
+  })
+  async validate(@Param('event') event: string, @XML() xmlData: string) {
+    const result = await this.newMessageService.validate(event, xmlData);
+    return result;
   }
 
   // @Get()
