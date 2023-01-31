@@ -53,13 +53,13 @@ export class CatalogService {
   }
 
   async listService() {
-    this.logger.debug('listService()');
-    return await this.prismaGrupoServicosRepository.listServiceNotUpdated();
+    this.logger.debug('listServiceAll()');
+    return await this.prismaGrupoServicosRepository.listService();
   }
 
-  async listServiceUpdated() {
-    this.logger.debug('listServiceUpdated()');
-    return await this.prismaGrupoServicosRepository.listServiceUpdated();
+  async listServiceId(id: string) {
+    this.logger.debug('listServiceId(id)');
+    return await this.prismaGrupoServicosRepository.listServiceId(id);
   }
 
   async getEvent(event: string) {

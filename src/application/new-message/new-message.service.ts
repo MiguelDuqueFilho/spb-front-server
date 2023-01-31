@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-
+import { KafkaMessageSendToServiceRepository } from '../../infra/kafka/repositories/kafka-message-send-to-service.repository';
 import { PrismaNewMessagesRepository } from '../../infra/prisma/repositories/prisma-new-messages-repository';
 import { NewMessage } from './entities/new-message';
 import libxmljs from 'libxmljs2';
@@ -9,7 +9,8 @@ import fs from 'node:fs';
 @Injectable()
 export class NewMessageService {
   constructor(
-    private readonly prismaNewMessagesRepository: PrismaNewMessagesRepository, // private readonly schemaService: SchemaService,
+    private readonly prismaNewMessagesRepository: PrismaNewMessagesRepository,
+    private readonly kafkaMessageSendToServiceRepository: KafkaMessageSendToServiceRepository,
   ) {}
 
   async validate(event: string, xmlData: string) {
@@ -70,6 +71,12 @@ export class NewMessageService {
     const resultNewMessage = await this.prismaNewMessagesRepository.save(
       newMsg,
     );
+
+    if (newMsg.status === 'VALIDATED') {
+      await this.kafkaMessageSendToServiceRepository.publishToService(
+        resultNewMessage,
+      );
+    }
     return resultNewMessage;
   }
 

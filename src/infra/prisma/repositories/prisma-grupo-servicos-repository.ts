@@ -28,17 +28,16 @@ export class PrismaGrupoServicosRepository {
     }
   }
 
-  async listServiceNotUpdated() {
-    this.logger.debug(`listAll()`);
-    const result = await this.prisma.grupoServico.findMany({
+  async listService() {
+    this.logger.debug(`listService()`);
+    const result: any[] = [];
+    const resultList = await this.prisma.grupoServico.findMany({
       include: {
-        _count: {
+        Eventos: {
           select: {
-            Eventos: {
-              where: {
-                IsConvert: false,
-              },
-            },
+            CodEvento: true,
+            NomeEvento: true,
+            IsConvert: true,
           },
         },
       },
@@ -46,30 +45,28 @@ export class PrismaGrupoServicosRepository {
         GrpServico: 'asc',
       },
     });
-    return result;
-  }
-  async listServiceUpdated() {
-    this.logger.debug(`listServicoUpdated()`);
-    const result = await this.prisma.grupoServico.findMany({
-      include: {
-        _count: {
-          select: {
-            Eventos: {
-              where: {
-                IsConvert: true,
-              },
-            },
-          },
-        },
-      },
-      orderBy: {
-        GrpServico: 'asc',
-      },
-    });
+
+    for (let i = 0; i < resultList.length; i++) {
+      let eventsTotal = 0;
+      let eventsConverted = 0;
+      const { Eventos } = resultList[i];
+      for (let ie = 0; ie < Eventos.length; ie++) {
+        if (Eventos[ie].IsConvert) {
+          eventsConverted += 1;
+        }
+        eventsTotal += 1;
+      }
+      result[i] = {
+        GrpServico: resultList[i].GrpServico,
+        Description: resultList[i].Descricao,
+        eventsTotal,
+        eventsConverted,
+      };
+    }
     return result;
   }
 
-  async listService(service: string) {
+  async listServiceId(service: string) {
     this.logger.debug(`listService(service: string)`);
     const result = await this.prisma.grupoServico.findUnique({
       where: {

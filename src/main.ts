@@ -1,5 +1,7 @@
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { KafkaConsumerService } from './infra/kafka/kafka-consumer.service';
+import { MicroserviceOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
@@ -28,6 +30,14 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/doc', app, document);
+
+  const kafkaConsumerService = app.get(KafkaConsumerService);
+
+  app.connectMicroservice<MicroserviceOptions>({
+    strategy: kafkaConsumerService,
+  });
+
+  await app.startAllMicroservices();
 
   const port = process.env.PORT;
 

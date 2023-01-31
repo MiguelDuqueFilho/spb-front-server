@@ -65,17 +65,17 @@ CREATE TABLE "Mensagens" (
 );
 
 -- CreateTable
-CREATE TABLE "MessagesCreated" (
+CREATE TABLE "NewMessages" (
     "id" SERIAL NOT NULL,
     "codMsg" VARCHAR(15) NOT NULL,
     "xmlMessage" XML NOT NULL,
     "process" TEXT NOT NULL DEFAULT 'PENDING',
     "status" TEXT NOT NULL DEFAULT 'VALIDATED',
-    "error" TEXT,
+    "error" JSONB DEFAULT '[]',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "MessagesCreated_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "NewMessages_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

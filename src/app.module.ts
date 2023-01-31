@@ -8,6 +8,7 @@ import { CatalogModule } from './application/catalog/catalog.module';
 import { SchemaModule } from './application/schema/schema.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { NewMessageModule } from './application/new-message/new-message.module';
+import { KafkaModule } from './infra/kafka/kafka.module';
 
 @Module({
   imports: [
@@ -16,9 +17,10 @@ import { NewMessageModule } from './application/new-message/new-message.module';
     }),
     AuthModule,
     UserModule,
-    CatalogModule,
+    KafkaModule,
     S3Module,
     PrismaModule,
+    CatalogModule,
     SchemaModule,
     NewMessageModule,
   ],

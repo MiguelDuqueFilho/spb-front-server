@@ -25,10 +25,9 @@ export class CatalogController {
   async listService() {
     return await this.catalogService.listService();
   }
-
-  @Get('list/service/updated')
-  async listServiceUpdated() {
-    return await this.catalogService.listServiceUpdated();
+  @Get('list/service/:id')
+  async listServiceId(@Param('id') id: string) {
+    return await this.catalogService.listServiceId(id);
   }
 
   @Get('list/event/:event')

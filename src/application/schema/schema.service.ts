@@ -75,13 +75,13 @@ export class SchemaService {
   }
 
   async updateSchemaByService(service: string) {
-    const resultServicos = await this.prismaGrupoServicosRepository.listService(
-      service,
-    );
+    const resultServicos =
+      await this.prismaGrupoServicosRepository.listServiceId(service);
 
     const { Eventos } = resultServicos;
 
-    let count = 0;
+    let total = 0;
+    let isConvertedCount = 0;
 
     for (let i = 0; i < Eventos.length; i++) {
       const resultConvert = await this.create(Eventos[i].CodEvento);
@@ -94,12 +94,13 @@ export class SchemaService {
         },
       );
 
-      if (!evento.IsConvert) {
-        count += 1;
+      if (evento.IsConvert) {
+        isConvertedCount += 1;
       }
+      total += 1;
     }
 
-    return { count };
+    return { total, isConvertedCount };
   }
 
   async validate(event: string, xmlData: string) {
